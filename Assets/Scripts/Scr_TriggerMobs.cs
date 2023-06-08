@@ -37,7 +37,6 @@ public class Scr_TriggerMobs : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Enter");
         Scr_Human_Chainsaw chainsaw = collision.GetComponent<Scr_Human_Chainsaw>();
         Scr_Human_GasTank gasTank = collision.GetComponent<Scr_Human_GasTank>();
         Scr_BotAi bot = collision.GetComponent<Scr_BotAi>();

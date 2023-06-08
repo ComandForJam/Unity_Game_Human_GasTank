@@ -6,10 +6,14 @@ public class Scr_BotAi : Scr_BaseCharacter
 {
     public Scr_TriggerMobs ownerTrigger;
     public Transform _transformTarget;
+
+    protected float cooldown = 1;
+    protected float timer = 0;
+    protected bool canAttack = true;
     protected override void Start()
     {
         base.Start();
-        speed = 10;
+        speed = 5;
     }
 
     protected override void Update()
@@ -19,17 +23,54 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        CooldownUpdate();
+
         if (_transformTarget != null)
         {
-            Move(_transformTarget.position);
+            Move();
+            WaitAttack();
         }
     }
 
-    void Move(Vector2 targetPos)
+    void Move()
     {
+        Vector2 targetPos = _transformTarget.position;
         motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
         transform.Translate(motion);
     }
+
+    protected virtual void WaitAttack() // Ожидание атаки, ждет момета нанести удар
+    {
+        if (Vector2.Distance(_transformTarget.position, transform.position) < 5)
+        {
+            Attack();
+        }
+    }
+    protected virtual void CooldownUpdate()
+    {
+        if (!canAttack)
+        {
+            timer += Time.fixedDeltaTime;
+            if (timer >= cooldown)
+            {
+                canAttack = true;
+            }
+            if (timer >= 0.5f) animator.SetBool("isSlice", false);
+        }
+    }
+    protected virtual void Attack()
+    {
+        if (canAttack)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isSlice", true);
+            }
+            canAttack = false;
+            timer = 0;
+        }
+    }
+
     private void OnDestroy()
     {
         if (ownerTrigger != null)

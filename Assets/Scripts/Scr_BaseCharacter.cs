@@ -14,10 +14,12 @@ public class Scr_BaseCharacter : MonoBehaviour
     protected bool faceRight = true; // Изначально персонаж смотрит вправо
 
     protected Animator animator;
+    protected SpriteRenderer sprite;
 
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void Update()
@@ -33,7 +35,6 @@ public class Scr_BaseCharacter : MonoBehaviour
     {
         if (motion != Vector2.zero)
         {
-            Debug.Log("direction");
             direction = motion;
             Flip();
         }
@@ -46,16 +47,19 @@ public class Scr_BaseCharacter : MonoBehaviour
                 animator.SetFloat("HorizontalMove", 0);
             } else
             {
-                if (motion.x != 0)
+                if (motion.x != 0 && Mathf.Abs(motion.x) > Mathf.Abs(motion.y))
                 {
                     animator.SetFloat("HorizontalMove", 1);
+                    animator.SetFloat("VerticalMove", 0);
                 }
-                if (motion.y > 0)
+                else if (motion.y > 0)
                 {
+                    animator.SetFloat("HorizontalMove", 0);
                     animator.SetFloat("VerticalMove", 1);
                 }
-                if (motion.y < 0)
+                else if (motion.y < 0)
                 {
+                    animator.SetFloat("HorizontalMove", 0);
                     animator.SetFloat("VerticalMove", -1);
                 }
 
@@ -66,7 +70,8 @@ public class Scr_BaseCharacter : MonoBehaviour
     {
         if (faceRight && direction.x < 0 || !faceRight && direction.x > 0)
         {
-            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+            sprite.flipX = !sprite.flipX;
+            //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
             faceRight = !faceRight;
         }
     }
@@ -79,9 +84,12 @@ public class Scr_BaseCharacter : MonoBehaviour
             Death();
         }
     }
-    protected virtual void Attack()
-    {
-
+    
+    protected virtual void Death() 
+    { 
+        if (animator != null)
+        {
+            animator.SetBool("isDeath", true);
+        }
     }
-    protected virtual void Death() { }
 }
