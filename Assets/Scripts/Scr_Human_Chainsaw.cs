@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scr_Human_GasTank : Scr_BaseCharacter
+public class Scr_Human_Chainsaw : Scr_BaseCharacter
 {
     public int pointsFear = 1; // Очки страха
     void Start()
@@ -21,10 +21,8 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
     }
     void Move()
     {
-        float x = Input.GetAxis("Horizontal") * speed;
-        float y = Input.GetAxis("Vertical") * speed;
-        Vector2 motion = new Vector2(x, y) * Time.deltaTime;
-        transform.Translate(motion);
+
+        //transform.Translate(motion);
     }
 
     public override void Damage(float damage)
@@ -42,6 +40,6 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
     protected override void Death()
     {
         // Место для включения анимации смерти
-        
+
     }
 }
