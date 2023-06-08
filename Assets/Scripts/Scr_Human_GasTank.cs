@@ -5,39 +5,33 @@ using UnityEngine;
 public class Scr_Human_GasTank : Scr_BaseCharacter
 {
     public int pointsFear = 1; // Очки страха
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         speed = 10;
     }
 
-    void Update()
+    protected override void Update()
     {
-
+        base.Update();
     }
-
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         Move();
     }
     void Move()
     {
-        float x = Input.GetAxis("Horizontal") * speed;
-        float y = Input.GetAxis("Vertical") * speed;
-        Vector2 motion = new Vector2(x, y) * Time.deltaTime;
-        transform.Translate(motion);
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        motion = new Vector2(x, y) * Time.deltaTime;
+        transform.Translate(motion * speed);
     }
 
     public override void Damage(float damage)
     {
-        health -= damage;
-        if (health <= 0)
-        {
-            Death();
-        }
-        else
-        {
-            // Место для включения анимации получения урона
-        }
+        base.Damage(damage);
+        // Место для включения анимации получения урона
     }
     protected override void Death()
     {

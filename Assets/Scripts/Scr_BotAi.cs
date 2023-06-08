@@ -6,17 +6,19 @@ public class Scr_BotAi : Scr_BaseCharacter
 {
     public Scr_TriggerMobs ownerTrigger;
     public Transform _transformTarget;
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         speed = 10;
     }
 
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
     }
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         if (_transformTarget != null)
         {
             Move(_transformTarget.position);
@@ -25,7 +27,7 @@ public class Scr_BotAi : Scr_BaseCharacter
 
     void Move(Vector2 targetPos)
     {
-        Vector2 motion = (targetPos - (Vector2)transform.position).normalized * speed * Time.fixedDeltaTime;
+        motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
         transform.Translate(motion);
     }
     private void OnDestroy()

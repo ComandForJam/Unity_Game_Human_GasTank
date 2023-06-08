@@ -5,37 +5,27 @@ using UnityEngine;
 public class Scr_Human_Chainsaw : Scr_BaseCharacter
 {
     public int pointsFear = 1; // Очки страха
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         speed = 10;
     }
 
-    void Update()
+    protected override void Update()
     {
-
+        base.Update();
     }
-
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        Move();
-    }
-    void Move()
-    {
-
-        //transform.Translate(motion);
+        base.FixedUpdate();
+        
     }
 
     public override void Damage(float damage)
     {
-        health -= damage;
-        if (health <= 0)
-        {
-            Death();
-        }
-        else
-        {
-            // Место для включения анимации получения урона
-        }
+        base.Damage(damage);
+        // Место для включения анимации получения урона
+        
     }
     protected override void Death()
     {
