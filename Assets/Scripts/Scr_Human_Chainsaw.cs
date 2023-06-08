@@ -9,6 +9,9 @@ public class Scr_Human_Chainsaw : Scr_BaseCharacter
     {
         base.Start();
         speed = 10;
+
+        maxHealth = 100;
+        health = maxHealth;
     }
 
     protected override void Update()

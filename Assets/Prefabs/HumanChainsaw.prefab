@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1335794058500377585}
   - component: {fileID: 3138398455612726456}
   - component: {fileID: 1492120212363667965}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HumanChainsaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}

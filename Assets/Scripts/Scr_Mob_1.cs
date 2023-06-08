@@ -2,23 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scr_BotAi : Scr_BaseCharacter
+public class Scr_Mob_1 : Scr_BotAi
 {
-    public Scr_TriggerMobs ownerTrigger;
-    public Transform _transformTarget;
-    public Transform _attackBox;
-
-    protected float cooldown = 1;
-    protected float timer = 0;
-    protected bool canAttack = true;
-
-    protected float rangeAttack = 1;
-    protected float damage = 5;
-    protected float radiusAttack = 1;
 
     protected override void Start()
     {
         base.Start();
+        speed = 5;
+        rangeAttack = 0.4f;
+        damage = 5;
+        radiusAttack = 0.6f;
+        cooldown = 1.5f;
+
+        maxHealth = 50;
+        health = maxHealth;
     }
 
     protected override void Update()
@@ -28,30 +25,23 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        CooldownUpdate();
-
-        if (_transformTarget != null)
-        {
-            Move();
-            WaitAttack();
-        }
     }
 
-    protected virtual void Move()
+    protected override void Move()
     {
         Vector2 targetPos = _transformTarget.position;
         motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
         transform.Translate(motion);
     }
 
-    protected virtual void WaitAttack() // Ожидание атаки, ждет момета нанести удар
+    protected override void WaitAttack() // Ожидание атаки, ждет момета нанести удар
     {
-        if (Vector2.Distance(_transformTarget.position, transform.position) < 5)
+        if (Vector2.Distance(_transformTarget.position, transform.position) < rangeAttack + radiusAttack)
         {
             Attack();
         }
     }
-    protected virtual void CooldownUpdate()
+    protected override void CooldownUpdate()
     {
         if (!canAttack)
         {
@@ -63,7 +53,7 @@ public class Scr_BotAi : Scr_BaseCharacter
             if (timer >= 0.5f) animator.SetBool("isSlice", false);
         }
     }
-    protected virtual void Attack()
+    protected override void Attack()
     {
         if (canAttack)
         {
@@ -72,7 +62,7 @@ public class Scr_BotAi : Scr_BaseCharacter
                 animator.SetBool("isSlice", true);
             }
 
-            //Scr_Attack.Action();
+            Scr_Attack.Action((Vector2)transform.position + direction * rangeAttack, radiusAttack, LayerMask.GetMask("Heroes"), damage, false);
 
             canAttack = false;
             timer = 0;
@@ -85,11 +75,5 @@ public class Scr_BotAi : Scr_BaseCharacter
         {
             ownerTrigger.RemoveMob(this);
         }
-    }
-    protected override void Death()
-    {
-        base.Death();
-
-        Destroy(gameObject, 1);
     }
 }

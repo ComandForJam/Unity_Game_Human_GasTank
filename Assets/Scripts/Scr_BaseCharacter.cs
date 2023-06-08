@@ -16,6 +16,9 @@ public class Scr_BaseCharacter : MonoBehaviour
     protected Animator animator;
     protected SpriteRenderer sprite;
 
+    private float damageTimer = 0;
+    private bool damageTimerActive = false;
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
@@ -24,12 +27,20 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     protected virtual void Update()
     {
-
+        
     }
 
     protected virtual void FixedUpdate()
     {
         Direction();
+        if (damageTimerActive)
+        {
+            damageTimer -= Time.fixedDeltaTime;
+            if (damageTimer <= 0)
+            {
+                sprite.color = Color.white;
+            }
+        }
     }
     protected void Direction()
     {
@@ -78,6 +89,10 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     public virtual void Damage(float damage)
     {
+        damageTimer = 0.05f;
+        damageTimerActive = true;
+        sprite.color = Color.red;
+
         health -= damage;
         if (health <= 0)
         {
@@ -91,5 +106,6 @@ public class Scr_BaseCharacter : MonoBehaviour
         {
             animator.SetBool("isDeath", true);
         }
+        
     }
 }

@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1234624160539468175}
   - component: {fileID: 1234624160539468174}
-  - component: {fileID: 7846951820736617728}
   - component: {fileID: -6860485561647741357}
   - component: {fileID: 3142666125441151153}
   - component: {fileID: 155588593907111780}
-  m_Layer: 0
+  - component: {fileID: 121323738288146029}
+  m_Layer: 8
   m_Name: Mob 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,20 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7846951820736617728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234624160539468169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2685d62c9200b2b4383bc2d01cc28e70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerTrigger: {fileID: 0}
-  _transformTarget: {fileID: 0}
 --- !u!61 &-6860485561647741357
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -115,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.017323434, y: -0.21035576}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -126,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.20312297, y: 0.37140656}
+  m_Size: {x: 0.30224895, y: 0.3430848}
   m_EdgeRadius: 0
 --- !u!50 &3142666125441151153
 Rigidbody2D:
@@ -170,3 +156,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &121323738288146029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234624160539468169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99146b78dfe4bce40ba39235f4712360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerTrigger: {fileID: 0}
+  _transformTarget: {fileID: 0}
+  _attackBox: {fileID: 0}
