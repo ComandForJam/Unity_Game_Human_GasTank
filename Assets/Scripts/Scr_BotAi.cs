@@ -6,7 +6,6 @@ public class Scr_BotAi : Scr_BaseCharacter
 {
     public Scr_TriggerMobs ownerTrigger;
     public Transform _transformTarget;
-    public Transform _attackBox;
 
     protected float cooldown = 1;
     protected float timer = 0;
@@ -30,7 +29,7 @@ public class Scr_BotAi : Scr_BaseCharacter
         base.FixedUpdate();
         CooldownUpdate();
 
-        if (_transformTarget != null)
+        if (_transformTarget != null && !isDeath)
         {
             Move();
             WaitAttack();
@@ -67,12 +66,14 @@ public class Scr_BotAi : Scr_BaseCharacter
     {
         if (canAttack)
         {
+            if (audioSource != null)
+            {
+                PlayAudio(AudioCode.attack);
+            }
             if (animator != null)
             {
                 animator.SetBool("isSlice", true);
             }
-
-            //Scr_Attack.Action();
 
             canAttack = false;
             timer = 0;
@@ -89,7 +90,7 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void Death()
     {
         base.Death();
-
+        
         Destroy(gameObject, 1);
     }
 }

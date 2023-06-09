@@ -19,10 +19,19 @@ public class Scr_BaseCharacter : MonoBehaviour
     private float damageTimer = 0;
     private bool damageTimerActive = false;
 
+    public List<AudioClip> audios;
+    public List<float> volumeScalesForAudios;
+    protected AudioSource audioSource;
+    protected AudioCode lastPlayed;
+
+    protected bool isDeath = false;
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     protected virtual void Update()
@@ -32,7 +41,10 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        Direction();
+        if (!isDeath)
+        {
+            Direction();
+        }
         if (damageTimerActive)
         {
             damageTimer -= Time.fixedDeltaTime;
@@ -44,6 +56,7 @@ public class Scr_BaseCharacter : MonoBehaviour
     }
     protected void Direction()
     {
+        
         if (motion != Vector2.zero)
         {
             direction = motion;
@@ -89,6 +102,14 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     public virtual void Damage(float damage)
     {
+        if (audioSource != null)
+        {
+            if (!audioSource.isPlaying || audioSource.isPlaying && lastPlayed != AudioCode.attack)
+            {
+                PlayAudio(AudioCode.damage);
+            }
+            
+        }
         damageTimer = 0.05f;
         damageTimerActive = true;
         sprite.color = Color.red;
@@ -102,10 +123,31 @@ public class Scr_BaseCharacter : MonoBehaviour
     
     protected virtual void Death() 
     { 
-        if (animator != null)
+        if (!isDeath)
         {
-            animator.SetBool("isDeath", true);
+            if (animator != null)
+            {
+                animator.SetBool("isDeath", true);
+            }
+            if (audioSource != null)
+            {
+                PlayAudio(AudioCode.death);
+            }
+            isDeath = true;
         }
-        
+    }
+
+    protected void PlayAudio(AudioCode code)
+    {
+        lastPlayed = code;
+        if (audios.Count - 1 >= (int)code && volumeScalesForAudios.Count - 1 >= (int)code)
+        audioSource.PlayOneShot(audios[(int)code], volumeScalesForAudios[(int)code]);
     }
 }
+
+public enum AudioCode //  оды звуков
+{
+    attack = 0, // удара
+    damage = 1, // получени€ урона
+    death = 2 // смерити
+} 

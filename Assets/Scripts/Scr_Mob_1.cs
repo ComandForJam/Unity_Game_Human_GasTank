@@ -55,17 +55,10 @@ public class Scr_Mob_1 : Scr_BotAi
     }
     protected override void Attack()
     {
+        base.Attack();
         if (canAttack)
         {
-            if (animator != null)
-            {
-                animator.SetBool("isSlice", true);
-            }
-
             Scr_Attack.Action((Vector2)transform.position + direction * rangeAttack, radiusAttack, LayerMask.GetMask("Heroes"), damage, false);
-
-            canAttack = false;
-            timer = 0;
         }
     }
 
