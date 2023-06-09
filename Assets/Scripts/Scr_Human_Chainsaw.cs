@@ -121,16 +121,4 @@ public class Scr_Human_Chainsaw : Scr_BaseCharacter
             timer = 0;
         }
     }
-
-    public override void Damage(float damage)
-    {
-        base.Damage(damage);
-        // Место для включения анимации получения урона
-        
-    }
-    protected override void Death()
-    {
-        // Место для включения анимации смерти
-
-    }
 }

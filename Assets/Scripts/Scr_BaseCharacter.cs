@@ -24,6 +24,8 @@ public class Scr_BaseCharacter : MonoBehaviour
     protected AudioSource audioSource;
     protected AudioCode lastPlayed;
 
+    protected new Collider2D collider;
+
     protected bool isDeath = false;
 
     protected virtual void Start()
@@ -31,7 +33,7 @@ public class Scr_BaseCharacter : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
-
+        collider = GetComponent<Collider2D>();
     }
 
     protected virtual void Update()
