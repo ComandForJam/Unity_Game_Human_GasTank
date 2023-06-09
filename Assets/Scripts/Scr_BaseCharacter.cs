@@ -61,7 +61,7 @@ public class Scr_BaseCharacter : MonoBehaviour
         
         if (motion != Vector2.zero)
         {
-            direction = motion;
+            direction = motion.normalized;
             Flip();
         }
         

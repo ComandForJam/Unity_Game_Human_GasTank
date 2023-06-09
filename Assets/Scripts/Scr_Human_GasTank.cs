@@ -6,7 +6,7 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
 {
     ParticleSystem _particleDash;
 
-    public int pointsFear = 1; // Очки страха
+    public int pointsFear = 10; // Очки страха
     float radiusPoison = 3.5f;
     float damagePoison = 1.5f;
 
@@ -20,6 +20,7 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
 
     bool isDash = false;
     float delayDash = 0.12f;
+    public float speedDash = 50;
 
     protected override void Start()
     {
@@ -74,7 +75,7 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
                 canPoison = true;
             }
         }
-        if(!canDash)
+        if (!canDash)
         {
             timerDash += Time.fixedDeltaTime;
             if (timerDash >= cooldownDash)
@@ -94,7 +95,7 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
     {
         if (isDash)
         {
-            transform.Translate(direction * 200 * Time.deltaTime);
+            transform.Translate(direction * speedDash * Time.deltaTime);
         } 
         else if (Input.GetKeyDown(KeyCode.Space) && canDash)
         {

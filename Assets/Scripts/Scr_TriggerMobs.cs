@@ -6,7 +6,7 @@ public class Scr_TriggerMobs : MonoBehaviour
 {
     public List<Scr_BotAi> listBotsInArea;
     List<Scr_BotAi> listForDelete;
-    public Scr_Human_GasTank _gastank;
+    Scr_Human_GasTank _gastank;
     Scr_Human_Chainsaw _chainsaw;
     AudioSource audioSource;
 
@@ -91,9 +91,9 @@ public class Scr_TriggerMobs : MonoBehaviour
     } // Вызывается мобами, когда те погибают : заносит их в список на удаление
     void RemoveMobs()
     {
-        isChangeInFight = true;
         if (listForDelete.Count != 0)
         {
+            isChangeInFight = true;
             foreach (var item in listForDelete)
             {
                 listBotsInArea.Remove(item);
@@ -110,12 +110,12 @@ public class Scr_TriggerMobs : MonoBehaviour
 
             if (!gastankNull && !chainsawNull)
             {
+                
                 UpdateAudio();
-                int fearGastank = !gastankNull ? _gastank.pointsFear : 0;
-                int fearChainsaw = !chainsawNull ? _chainsaw.pointsFear : 0;
+                float fearGastank = _gastank.pointsFear;
+                float fearChainsaw = _chainsaw.pointsFear;
 
-                int countOnGastank = listBotsInArea.Count * (fearChainsaw / (fearChainsaw + fearGastank));
-
+                int countOnGastank = (int)(listBotsInArea.Count * (fearChainsaw / (fearChainsaw + fearGastank)));
                 for (int i = 0; i < listBotsInArea.Count; i++)
                 {
                     if (i < countOnGastank)
@@ -143,7 +143,6 @@ public class Scr_TriggerMobs : MonoBehaviour
                 }
             }
             isChangeInFight = false;
-            
         }
     }
     void UpdateAudio()

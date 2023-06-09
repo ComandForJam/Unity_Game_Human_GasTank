@@ -6,7 +6,7 @@ public class Scr_Human_Chainsaw : Scr_BaseCharacter
 {
     public Transform _playerTr;
 
-    public int pointsFear = 1; // Очки страха
+    public int pointsFear = 10; // Очки страха
 
     protected Vector2 targetPos;
 
