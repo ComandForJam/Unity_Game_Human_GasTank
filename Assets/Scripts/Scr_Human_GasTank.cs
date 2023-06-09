@@ -35,8 +35,8 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        motion = new Vector2(x, y) * Time.deltaTime;
-        transform.Translate(motion * speed);
+        motion = new Vector2(x, y) * Time.deltaTime * speed;
+        transform.Translate(motion);
     }
 
     private void Poisoning()
@@ -59,6 +59,7 @@ public class Scr_Human_GasTank : Scr_BaseCharacter
             }
         }
     }
+    
     /*
     public override void Damage(float damage)
     {

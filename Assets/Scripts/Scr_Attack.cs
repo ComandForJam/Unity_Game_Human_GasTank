@@ -6,7 +6,7 @@ public class Scr_Attack
 {
 
 	// функция возвращает ближайший объект из массива, относительно указанной позиции
-	static GameObject NearTarget(Vector3 position, Collider2D[] array)
+	public static GameObject NearTarget(Vector3 position, Collider2D[] array)
 	{
 		Collider2D current = null;
 		float dist = Mathf.Infinity;
@@ -16,6 +16,24 @@ public class Scr_Attack
 			float curDist = Vector3.Distance(position, coll.transform.position);
 
 			if (curDist < dist)
+			{
+				current = coll;
+				dist = curDist;
+			}
+		}
+
+		return (current != null) ? current.gameObject : null;
+	}
+	public static GameObject FarTarget(Vector3 position, Collider2D[] array)
+	{
+		Collider2D current = null;
+		float dist = 0;
+
+		foreach (Collider2D coll in array)
+		{
+			float curDist = Vector3.Distance(position, coll.transform.position);
+
+			if (curDist > dist)
 			{
 				current = coll;
 				dist = curDist;

@@ -8,21 +8,26 @@ public class Scr_TriggerMobs : MonoBehaviour
     List<Scr_BotAi> listForDelete;
     public Scr_Human_GasTank _gastank;
     Scr_Human_Chainsaw _chainsaw;
+    AudioSource audioSource;
 
     bool isChangeInFight = false;
 
     void Start()
     {
         listBotsInArea = new List<Scr_BotAi>();
-        for (int i = 0; i < transform.childCount; i++)
+
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<BoxCollider2D>().size, transform.rotation.eulerAngles.z, LayerMask.GetMask("Enemy"));
+        for (int i = 0; i < colliders.Length; i++)
         {
-            Scr_BotAi child = transform.GetChild(i).gameObject.GetComponent<Scr_BotAi>();
-            if (child != null)
+            GameObject mob = colliders[i].gameObject;
+            if (mob != null)
             {
-                listBotsInArea.Add(child);
+                AddMob(mob);
             }
         }
         listForDelete = new List<Scr_BotAi>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -54,11 +59,27 @@ public class Scr_TriggerMobs : MonoBehaviour
             AddMob(collision.gameObject);
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Scr_Human_Chainsaw chainsaw = collision.GetComponent<Scr_Human_Chainsaw>();
+        Scr_Human_GasTank gasTank = collision.GetComponent<Scr_Human_GasTank>();
+
+        if (chainsaw != null)
+        {
+            isChangeInFight = true;
+            _chainsaw = null;
+        }
+        else if (gasTank != null)
+        {
+            isChangeInFight = true;
+            _gastank = null;
+        }
+    }
 
     public void AddMob(GameObject mob)
     {
         Scr_BotAi child = mob.GetComponent<Scr_BotAi>();
-        if (child != null)
+        if (child != null && !listBotsInArea.Contains(child))
         {
             listBotsInArea.Add(child);
             child.ownerTrigger = this;
@@ -89,6 +110,7 @@ public class Scr_TriggerMobs : MonoBehaviour
 
             if (!gastankNull && !chainsawNull)
             {
+                UpdateAudio();
                 int fearGastank = !gastankNull ? _gastank.pointsFear : 0;
                 int fearChainsaw = !chainsawNull ? _chainsaw.pointsFear : 0;
 
@@ -107,18 +129,28 @@ public class Scr_TriggerMobs : MonoBehaviour
                 }
             } else if (!gastankNull)
             {
+                UpdateAudio();
                 foreach (var bot in listBotsInArea)
                 {
                     bot._transformTarget = _gastank.transform;
                 }
             } else if (!chainsawNull)
             {
+                UpdateAudio();
                 foreach (var bot in listBotsInArea)
                 {
                     bot._transformTarget = _chainsaw.transform;
                 }
             }
             isChangeInFight = false;
+            
         }
+    }
+    void UpdateAudio()
+    {
+        if (!audioSource.isPlaying && listBotsInArea.Count > 0)
+            audioSource.Play();
+        else if (audioSource.isPlaying && listBotsInArea.Count == 0)
+            audioSource.Stop();
     }
 }

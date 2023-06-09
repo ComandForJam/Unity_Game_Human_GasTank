@@ -30,7 +30,14 @@ public class Scr_Mob_1 : Scr_BotAi
     protected override void Move()
     {
         Vector2 targetPos = _transformTarget.position;
-        motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+        if (Vector2.Distance(targetPos, transform.position) > radiusAttack + rangeAttack)
+        {
+            motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+        }
+        else
+        {
+            motion = Vector2.zero;
+        }
         transform.Translate(motion);
     }
 

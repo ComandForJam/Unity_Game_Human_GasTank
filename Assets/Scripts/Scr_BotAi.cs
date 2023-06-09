@@ -39,7 +39,14 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected virtual void Move()
     {
         Vector2 targetPos = _transformTarget.position;
-        motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+        if (Vector2.Distance(targetPos, transform.position) > radiusAttack + rangeAttack)
+        {
+            motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+        }
+        else
+        {
+            motion = Vector2.zero;
+        }
         transform.Translate(motion);
     }
 
