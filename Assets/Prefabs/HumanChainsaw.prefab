@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8786056660097376249}
   - component: {fileID: -1335794058500377585}
   - component: {fileID: 3138398455612726456}
+  - component: {fileID: 5854053015124875444}
+  - component: {fileID: 4412389488890310893}
   - component: {fileID: 1492120212363667965}
   m_Layer: 9
   m_Name: HumanChainsaw
@@ -125,7 +127,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca14bcc50a20b5248b9801a399133873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audios: []
+  volumeScalesForAudios: []
+  _dash: {fileID: 0}
   pointsFear: 1
+  _playerTr: {fileID: 0}
+--- !u!114 &5854053015124875444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8786056660097376255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2cc0cb6d185014ca00d5a31786b2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedDash: 50
+  isDash: 0
+  canDash: 1
+--- !u!114 &4412389488890310893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8786056660097376255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3c500735709b040af8c1a41f4ce9e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0.8
+  canSlice: 1
+  isSlice: 0
+  rangeAttack: 0.4
+  damage: 5
+  radiusAttack: 1.5
 --- !u!50 &1492120212363667965
 Rigidbody2D:
   serializedVersion: 4

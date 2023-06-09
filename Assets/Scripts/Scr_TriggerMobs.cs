@@ -6,8 +6,7 @@ public class Scr_TriggerMobs : MonoBehaviour
 {
     public List<Scr_BotAi> listBotsInArea;
     List<Scr_BotAi> listForDelete;
-    Scr_Human_GasTank _gastank;
-    Scr_Human_Chainsaw _chainsaw;
+    List<Scr_BaseHero> heroes;
     AudioSource audioSource;
 
     bool isChangeInFight = false;
@@ -28,6 +27,7 @@ public class Scr_TriggerMobs : MonoBehaviour
         listForDelete = new List<Scr_BotAi>();
 
         audioSource = GetComponent<AudioSource>();
+        heroes = new();
     }
 
     void Update()
@@ -42,18 +42,13 @@ public class Scr_TriggerMobs : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Scr_Human_Chainsaw chainsaw = collision.GetComponent<Scr_Human_Chainsaw>();
-        Scr_Human_GasTank gasTank = collision.GetComponent<Scr_Human_GasTank>();
+        Scr_BaseHero hero = collision.GetComponent<Scr_BaseHero>();
         Scr_BotAi bot = collision.GetComponent<Scr_BotAi>();
 
-        if (chainsaw != null) {
+        if (hero != null) {
             isChangeInFight = true;
-            _chainsaw = chainsaw;
-        } else if (gasTank != null)
-        {
-            isChangeInFight = true;
-            _gastank = gasTank;
-        } else if (bot != null)
+            heroes.Add(hero);
+        }  else if (bot != null)
         {
             isChangeInFight = true;
             AddMob(collision.gameObject);
@@ -61,18 +56,15 @@ public class Scr_TriggerMobs : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Scr_Human_Chainsaw chainsaw = collision.GetComponent<Scr_Human_Chainsaw>();
-        Scr_Human_GasTank gasTank = collision.GetComponent<Scr_Human_GasTank>();
+        Scr_BaseHero hero = collision.GetComponent<Scr_BaseHero>();
 
-        if (chainsaw != null)
+        if (hero != null)
         {
             isChangeInFight = true;
-            _chainsaw = null;
-        }
-        else if (gasTank != null)
-        {
-            isChangeInFight = true;
-            _gastank = null;
+            if (heroes.Contains(hero))
+            {
+                heroes.Remove(hero);
+            }
         }
     }
 
@@ -105,41 +97,31 @@ public class Scr_TriggerMobs : MonoBehaviour
     {
         if (isChangeInFight)
         {
-            bool gastankNull = _gastank == null;
-            bool chainsawNull = _chainsaw == null;
-
-            if (!gastankNull && !chainsawNull)
+            if (heroes.Count > 1)
             {
-                
                 UpdateAudio();
-                float fearGastank = _gastank.pointsFear;
-                float fearChainsaw = _chainsaw.pointsFear;
 
-                int countOnGastank = (int)(listBotsInArea.Count * (fearChainsaw / (fearChainsaw + fearGastank)));
+                float fear1 = heroes[0].pointsFear;
+                float fear2 = heroes[1].pointsFear;
+
+                int countOnGastank = (int)(listBotsInArea.Count * (fear1 / (fear1 + fear2)));
                 for (int i = 0; i < listBotsInArea.Count; i++)
                 {
                     if (i < countOnGastank)
                     {
-                        listBotsInArea[i]._transformTarget = _gastank.transform;
+                        listBotsInArea[i]._transformTarget = heroes[1].transform;
                     }
                     else
                     {
-                        listBotsInArea[i]._transformTarget = _chainsaw.transform;
+                        listBotsInArea[i]._transformTarget = heroes[0].transform;
                     }
                 }
-            } else if (!gastankNull)
+            } else if (heroes.Count == 1)
             {
                 UpdateAudio();
                 foreach (var bot in listBotsInArea)
                 {
-                    bot._transformTarget = _gastank.transform;
-                }
-            } else if (!chainsawNull)
-            {
-                UpdateAudio();
-                foreach (var bot in listBotsInArea)
-                {
-                    bot._transformTarget = _chainsaw.transform;
+                    bot._transformTarget = heroes[0].transform;
                 }
             }
             isChangeInFight = false;

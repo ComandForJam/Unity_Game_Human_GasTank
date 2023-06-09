@@ -4825,6 +4825,8 @@ GameObject:
   - component: {fileID: 696160857606780903}
   - component: {fileID: -3086454156056681167}
   - component: {fileID: 5698216078116375008}
+  - component: {fileID: 3284283899819291526}
+  - component: {fileID: 5577775253682965595}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -4917,8 +4919,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audios: []
   volumeScalesForAudios: []
+  _dash: {fileID: 0}
   pointsFear: 1
-  speedDash: 50
 --- !u!61 &-3086454156056681167
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4966,6 +4968,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3284283899819291526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696160857606780901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2cc0cb6d185014ca00d5a31786b2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedDash: 50
+--- !u!114 &5577775253682965595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696160857606780901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364ef68ff0826904f8d4956e8235de67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2116318933479523828
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Scr_BaseCharacter : MonoBehaviour
 {// Скрипт, который наследуют все персонажи 
-
     protected float maxHealth;
     protected float health;
 
@@ -17,7 +16,6 @@ public class Scr_BaseCharacter : MonoBehaviour
     protected SpriteRenderer sprite;
 
     private float damageTimer = 0;
-    private bool damageTimerActive = false;
 
     public List<AudioClip> audios;
     public List<float> volumeScalesForAudios;
@@ -28,50 +26,70 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     protected bool isDeath = false;
 
+    protected StateCharacter stateCharacter;
+    protected bool canState = true; // Можно ли изменить состояние
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
         collider = GetComponent<Collider2D>();
+
+        stateCharacter = StateCharacter.isIdle;
+        motion = Vector2.down;
+        direction = motion;
     }
 
     protected virtual void Update()
     {
-        
+
     }
 
     protected virtual void FixedUpdate()
     {
-        if (!isDeath)
+        UpdateDamage();
+        switch (stateCharacter)
         {
-            Direction();
-        }
-        if (damageTimerActive)
-        {
-            damageTimer -= Time.fixedDeltaTime;
-            if (damageTimer <= 0)
-            {
-                sprite.color = Color.white;
-            }
+            case StateCharacter.isIdle:
+                UpdateIdle();
+                break;
+            case StateCharacter.isMove:
+                UpdateMove();
+                break;
+            case StateCharacter.isDamage:
+                
+                break;
+            case StateCharacter.isSlice:
+                UpdateSlice();
+                break;
+            case StateCharacter.isDeath:
+                break;
         }
     }
-    protected void Direction()
+    protected virtual void UpdateIdle()
     {
-        
+        UpdateAnimator();
+    }
+    protected virtual void UpdateMove()
+    {
         if (motion != Vector2.zero)
         {
             direction = motion.normalized;
             Flip();
         }
-        
+        UpdateAnimator();
+    }
+    protected virtual void UpdateAnimator()
+    {
         if (animator != null)
         {
             if (motion == Vector2.zero)
             {
                 animator.SetFloat("VerticalMove", 0);
                 animator.SetFloat("HorizontalMove", 0);
-            } else
+            }
+            else
             {
                 if (motion.x != 0 && Mathf.Abs(motion.x) > Mathf.Abs(motion.y))
                 {
@@ -88,44 +106,59 @@ public class Scr_BaseCharacter : MonoBehaviour
                     animator.SetFloat("HorizontalMove", 0);
                     animator.SetFloat("VerticalMove", -1);
                 }
-
             }
         }
+    }
+    protected virtual void UpdateDamage()
+    {
+        if (damageTimer > 0)
+        {
+            damageTimer -= Time.fixedDeltaTime;
+            if (damageTimer <= 0)
+            {
+                //canState = true;
+                //stateCharacter = StateCharacter.isIdle;
+                sprite.color = Color.white;
+            }
+        }
+    }
+    protected virtual void UpdateSlice()
+    {
+
     }
     void Flip()
     {
         if (faceRight && direction.x < 0 || !faceRight && direction.x > 0)
         {
             sprite.flipX = !sprite.flipX;
-            //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
             faceRight = !faceRight;
         }
     }
 
-    public virtual void Damage(float damage)
+    public virtual void Damage(float damage, bool stan)
     {
         if (audioSource != null)
         {
-            if (!audioSource.isPlaying || audioSource.isPlaying && lastPlayed != AudioCode.attack)
-            {
-                PlayAudio(AudioCode.damage);
-            }
-            
+            PlayAudio(AudioCode.damage);
         }
-        damageTimer = 0.05f;
-        damageTimerActive = true;
-        sprite.color = Color.red;
-
         health -= damage;
         if (health <= 0)
         {
             Death();
+            return;
         }
+        if (stan)
+        {
+            damageTimer = 0.05f;
+            sprite.color = Color.red;
+            //stateCharacter = StateCharacter.isDamage;
+        }
+        //canState = !stan;
     }
-    
-    protected virtual void Death() 
-    { 
-        if (!isDeath)
+
+    protected virtual void Death()
+    {
+        if (stateCharacter != StateCharacter.isDeath)
         {
             if (animator != null)
             {
@@ -135,7 +168,9 @@ public class Scr_BaseCharacter : MonoBehaviour
             {
                 PlayAudio(AudioCode.death);
             }
-            isDeath = true;
+            stateCharacter = StateCharacter.isDeath;
+            canState = false;
+            Destroy(gameObject, 1);
         }
     }
 
@@ -143,13 +178,22 @@ public class Scr_BaseCharacter : MonoBehaviour
     {
         lastPlayed = code;
         if (audios.Count - 1 >= (int)code && volumeScalesForAudios.Count - 1 >= (int)code)
-        audioSource.PlayOneShot(audios[(int)code], volumeScalesForAudios[(int)code]);
+            audioSource.PlayOneShot(audios[(int)code], volumeScalesForAudios[(int)code]);
     }
+}
+public enum StateCharacter
+{
+    isIdle = 0,
+    isMove = 1,
+    isSlice = 2,
+    isDash = 3,
+    isDamage = 4,
+    isDeath = 9
 }
 
 public enum AudioCode // Коды звуков
 {
     attack = 0, // удара
     damage = 1, // получения урона
-    death = 2 // смерити
-} 
+    death = 2 // смерти
+}
