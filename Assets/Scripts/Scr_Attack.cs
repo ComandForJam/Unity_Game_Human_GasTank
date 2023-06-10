@@ -52,7 +52,7 @@ public class Scr_Attack
 	// layerMask - номер слоя, с которым будет взаимодействие
 	// damage - наносимый урон
 	// allTargets - должны-ли получить урон все цели, попавшие в зону поражения
-	public static void Action(Vector2 point, float radius, int layerMask, float damage, bool allTargets, bool stan)
+	public static void Action(Vector2 point, float radius, int layerMask, float damage, bool allTargets, bool stan, GameObject byGameObject)
 	{
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius, layerMask);
 		
@@ -64,7 +64,7 @@ public class Scr_Attack
 			Scr_BaseCharacter baseChara = obj.GetComponent<Scr_BaseCharacter>();
 			if (obj != null && baseChara != null)
 			{
-				baseChara.Damage(damage, stan);
+				baseChara.Damage(damage, stan, byGameObject);
 			}
 			return;
 		}
@@ -74,11 +74,11 @@ public class Scr_Attack
 			Scr_BaseCharacter baseChara = hit.GetComponent<Scr_BaseCharacter>();
 			if (baseChara != null)
 			{
-				baseChara.Damage(damage, stan);
+				baseChara.Damage(damage, stan, byGameObject);
 			}
 		}
 	}
-	public static void ActionPoison(Vector2 point, float radius, int layerMask, float damage) // Poison
+	public static void ActionPoison(Vector2 point, float radius, int layerMask, float damage, GameObject byGameObject) // Poison
 	{
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius, layerMask);
 		if (colliders.Length == 0) return;
@@ -90,7 +90,7 @@ public class Scr_Attack
 			{
 				float _damage = damage / Vector2.Distance(point, hit.transform.position);
 				_damage = Mathf.Clamp(_damage, damage/10, damage);
-				baseChara.Damage(_damage, false);
+				baseChara.Damage(_damage, false, byGameObject);
 			}
 		}
 	}

@@ -118,7 +118,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     {
         if (canState && _slice.canSlice && distanceToTarget < _slice.radiusAttack + _slice.rangeAttack)
         {
-            _slice.Slice(direction, LayerMask.GetMask("Enemy"), true);
+            _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
             stateCharacter = StateCharacter.isSlice;
             canState = false;
             if (audioSource != null)
@@ -151,7 +151,6 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected override void UpdateLifeSave()
     {
         base.UpdateLifeSave(); 
-        Debug.Log(targetPos + " " + _playerTr.position);
         if (canState && !Health.HealthLessPercent(0.7f))
         {
             stateCharacter = StateCharacter.isIdle;

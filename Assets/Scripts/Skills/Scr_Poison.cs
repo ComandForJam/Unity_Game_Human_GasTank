@@ -40,7 +40,7 @@ public class Scr_Poison : MonoBehaviour
     {
         if (canPoison)
         {
-            Scr_Attack.ActionPoison(transform.position, radiusPoison, LayerMask.GetMask("Enemy"), damagePoison);
+            Scr_Attack.ActionPoison(transform.position, radiusPoison, LayerMask.GetMask("Enemy"), damagePoison, gameObject);
             canPoison = false;
             timerPoison = 0;
         }

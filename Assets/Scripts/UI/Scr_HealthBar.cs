@@ -37,7 +37,7 @@ public class Scr_HealthBar : MonoBehaviour
         if (_hero.Health.health != health)
         {
             health = _hero.Health.health;
-            _barNum.text = _hero.Health.health.ToString();
+            _barNum.text = ((int)_hero.Health.health).ToString();
             _bar.fillAmount = health / maxHealth;
         }
     }

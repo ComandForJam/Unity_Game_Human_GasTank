@@ -5,8 +5,6 @@ using UnityEngine;
 public class Scr_BaseHero : Scr_BaseCharacter
 {
     protected Scr_Dash _dash;
-    
-    public int pointsFear = 10; // Очки страха
 
     protected override void Start()
     {
@@ -57,7 +55,17 @@ public class Scr_BaseHero : Scr_BaseCharacter
         UpdateMove();
     }
     
+    public void Healed(float heal, GameObject owner)
+    {
+        Health.Heal(heal);
+        if (pointsFear > 1 + (int)heal / 2)
+        {
+            owner.GetComponent<Scr_BaseHero>().pointsFear += (int)heal / 2;
+            pointsFear -= (int)heal / 2;
+        }
+        
 
+    }
 }
 
 

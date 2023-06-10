@@ -57,7 +57,7 @@ public class Scr_BotAi : Scr_BaseCharacter
     {
         if (canState && _slice.canSlice && Vector2.Distance(_transformTarget.position, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
         {
-            _slice.Slice(direction, LayerMask.GetMask("Heroes"), false);
+            _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
             stateCharacter = StateCharacter.isSlice;
             canState = false;
             if (audioSource != null)

@@ -36,12 +36,12 @@ public class Scr_Slice : MonoBehaviour
             if (timer >= 0.3f) isSlice = false;
         }
     }
-    public void Slice(Vector2 direction, LayerMask layerMask, bool stan)
+    public void Slice(Vector2 direction, LayerMask layerMask, bool stan, GameObject byGameObject)
     {
         if (canSlice)
         {
             //Debug.Log(gameObject + " " + radiusAttack);
-            Scr_Attack.Action((Vector2)transform.position + direction * rangeAttack, radiusAttack, layerMask, damage, false, stan);
+            Scr_Attack.Action((Vector2)transform.position + direction * rangeAttack, radiusAttack, layerMask, damage, false, stan, byGameObject);
             
             canSlice = false;
             isSlice = true;

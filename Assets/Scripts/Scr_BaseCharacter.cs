@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_BaseCharacter : MonoBehaviour
 {// Скрипт, который наследуют все персонажи 
+    public int pointsFear = 10; // Очки страха
 
     public Scr_Health Health;
     public float baseHealth = 50;
@@ -138,7 +139,7 @@ public class Scr_BaseCharacter : MonoBehaviour
         }
     }
 
-    public virtual void Damage(float damage, bool stan)
+    public virtual void Damage(float damage, bool stan, GameObject byGameObject)
     {
         if (audioSource != null)
         {
@@ -147,7 +148,7 @@ public class Scr_BaseCharacter : MonoBehaviour
         Health.Damage(damage);
         if (Health.IsDeath)
         {
-            Death();
+            Death(byGameObject);
             return;
         }
         if (stan)
@@ -159,10 +160,16 @@ public class Scr_BaseCharacter : MonoBehaviour
         //canState = !stan;
     }
 
-    protected virtual void Death()
+    protected virtual void Death(GameObject byGameObject)
     {
         if (stateCharacter != StateCharacter.isDeath)
         {
+            Scr_BaseHero hero = byGameObject.GetComponent<Scr_BaseHero>();
+            if (hero != null)
+            {
+                hero.pointsFear += pointsFear;
+                pointsFear = 1;
+            }
             if (animator != null)
             {
                 animator.SetBool("isDeath", true);
