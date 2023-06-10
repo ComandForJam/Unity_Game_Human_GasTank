@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Scr_Slice : MonoBehaviour
 {
+    public GameObject circleSlice;
     [SerializeField]
-    float cooldown = 1;
+    float cooldown;
     float timer = 0;
     public bool canSlice = true;
     public bool isSlice = false;
 
-    public float rangeAttack = 1;
+    public float rangeAttack;
     [SerializeField]
-    float damage = 5;
-    public float radiusAttack = 1;
+    float damage;
+    public float radiusAttack;
 
     void Start()
     {
@@ -39,10 +40,18 @@ public class Scr_Slice : MonoBehaviour
     {
         if (canSlice)
         {
+            //Debug.Log(gameObject + " " + radiusAttack);
             Scr_Attack.Action((Vector2)transform.position + direction * rangeAttack, radiusAttack, layerMask, damage, false, stan);
+            
             canSlice = false;
             isSlice = true;
             timer = 0;
+            GameObject circle = Instantiate(circleSlice, (Vector2)transform.position + direction * rangeAttack, transform.rotation);
+            circle.transform.localScale = new Vector2(radiusAttack, radiusAttack);
+            Destroy(circle, 0.2f);
+            if (layerMask == LayerMask.GetMask("Enemy")) circle.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 0.5f);
+            else if (layerMask == LayerMask.GetMask("Heroes")) circle.GetComponent<SpriteRenderer>().color = new Color(1,0,0,0.5f);
+            
         }
     }
 }

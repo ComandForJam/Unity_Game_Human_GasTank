@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Scr_BaseCharacter : MonoBehaviour
 {// Скрипт, который наследуют все персонажи 
-    protected float maxHealth;
-    protected float health;
+
+    public Scr_Health Health;
+    public float baseHealth = 50;
 
     protected float speed = 10;
     protected Vector2 motion;
@@ -39,6 +40,8 @@ public class Scr_BaseCharacter : MonoBehaviour
         stateCharacter = StateCharacter.isIdle;
         motion = Vector2.down;
         direction = motion;
+
+        Health = new Scr_Health(baseHealth);
     }
 
     protected virtual void Update()
@@ -141,8 +144,8 @@ public class Scr_BaseCharacter : MonoBehaviour
         {
             PlayAudio(AudioCode.damage);
         }
-        health -= damage;
-        if (health <= 0)
+        Health.Damage(damage);
+        if (Health.IsDeath)
         {
             Death();
             return;
@@ -170,6 +173,7 @@ public class Scr_BaseCharacter : MonoBehaviour
             }
             stateCharacter = StateCharacter.isDeath;
             canState = false;
+            Health.health = 0;
             Destroy(gameObject, 1);
         }
     }
@@ -188,6 +192,7 @@ public enum StateCharacter
     isSlice = 2,
     isDash = 3,
     isDamage = 4,
+    isLifeSave = 5,
     isDeath = 9
 }
 

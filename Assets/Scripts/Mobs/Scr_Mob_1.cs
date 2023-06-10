@@ -8,9 +8,7 @@ public class Scr_Mob_1 : Scr_BotAi
     protected override void Start()
     {
         base.Start();
-
-        maxHealth = 50;
-        health = maxHealth;
+        speed = 5;
     }
 
     protected override void Update()
@@ -20,7 +18,6 @@ public class Scr_Mob_1 : Scr_BotAi
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        Debug.Log(stateCharacter);
     }
 
     protected override void UpdateMove()

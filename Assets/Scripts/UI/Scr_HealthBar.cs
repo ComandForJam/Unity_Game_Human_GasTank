@@ -7,30 +7,38 @@ public class Scr_HealthBar : MonoBehaviour
 {
     public Image _bar;
     public Image _background;
+    public TMPro.TextMeshProUGUI _barNum;
+    RectTransform rectBackground;
 
     public GameObject _owner;
+    Scr_BaseHero _hero;
 
-    int stateCharacter;
-    Scr_Human_GasTank _gasTank;
-    Scr_Human_Chainsaw _chainsaw;
+    float health;
+    float maxHealth;
     void Start()
     {
-        _gasTank = _owner.GetComponent<Scr_Human_GasTank>();
-        _chainsaw = _owner.GetComponent<Scr_Human_Chainsaw>();
+        _hero = _owner.GetComponent<Scr_BaseHero>();
+        rectBackground = _background.rectTransform;
+        rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _hero.Health.maxHealth * 2);
 
-        if (_gasTank != null)
-        {
-            stateCharacter = 1;
-        } else if (_chainsaw != null)
-        {
-            stateCharacter = 2;
-        }
-        //_bar.GetComponent<Rect>().width =
+        _barNum.text = _hero.Health.health.ToString();
+        health = _hero.Health.health;
+        maxHealth = _hero.Health.maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (_hero.Health.maxHealth != maxHealth)
+        {
+            maxHealth = _hero.Health.maxHealth;
+            rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHealth * 2);
+        }
+        if (_hero.Health.health != health)
+        {
+            health = _hero.Health.health;
+            _barNum.text = _hero.Health.health.ToString();
+            _bar.fillAmount = health / maxHealth;
+        }
     }
 }

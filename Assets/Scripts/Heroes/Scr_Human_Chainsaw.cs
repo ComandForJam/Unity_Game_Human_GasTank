@@ -7,15 +7,13 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     public Transform _playerTr;
     protected Scr_Slice _slice;
     protected Vector2 targetPos;
+    protected float distanceToTarget;
     protected override void Start()
     {
         base.Start();
         targetPos = transform.position;
         _slice = GetComponent<Scr_Slice>();
         speed = 10;
-
-        maxHealth = 100;
-        health = maxHealth;
     }
 
     protected override void Update()
@@ -25,6 +23,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected override void FixedUpdate()
     {
         UpdateDamage();
+        ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:
@@ -32,9 +31,9 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                 UpdateIdle();
                 break;
             case StateCharacter.isMove:
-                UpdateTarget();
                 UpdateMove();
                 WaitAttack();
+                UpdateTarget();
                 break;
             case StateCharacter.isDamage:
                 break;
@@ -43,6 +42,9 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                 break;
             case StateCharacter.isDash:
                 UpdateDash();
+                break;
+            case StateCharacter.isLifeSave:
+                UpdateLifeSave();
                 break;
             case StateCharacter.isDeath:
                 break;
@@ -53,7 +55,8 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     {
         base.UpdateIdle();
         canState = true;
-        if (Vector2.Distance(targetPos, transform.position) > 3)
+        distanceToTarget = Vector2.Distance(targetPos, transform.position);
+        if (distanceToTarget > 3)
         {
             motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
             transform.Translate(motion);
@@ -65,7 +68,8 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected override void UpdateMove()
     {
         base.UpdateMove();
-        if (Vector2.Distance(targetPos,transform.position) > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
+        distanceToTarget = Vector2.Distance(targetPos, transform.position);
+        if (distanceToTarget > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
         {
             motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
             transform.Translate(motion);
@@ -77,37 +81,41 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
     void UpdateTarget()
     {
-        if (health <= 0.2 * maxHealth)
+        if (canState)
         {
-            stateCharacter = StateCharacter.isMove;
-            targetPos = _playerTr.position;
-            return;
-        }
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4, LayerMask.GetMask("Enemy"));
-        if (colliders.Length != 0)
-        {
-            stateCharacter = StateCharacter.isMove;
-            if (health <= 0.4 * maxHealth)
+            if (Health.HealthLessPercent(0.2f))
             {
-                targetPos = Scr_Attack.NearTarget(_playerTr.position, colliders).transform.position;
+                stateCharacter = StateCharacter.isLifeSave;
+                targetPos = _playerTr.position;
+                canState = true;
                 return;
             }
-            if (Random.value < 0.5f)
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4, LayerMask.GetMask("Enemy"));
+            if (colliders.Length != 0)
             {
-                targetPos = Scr_Attack.NearTarget(transform.position, colliders).transform.position;
+                stateCharacter = StateCharacter.isMove;
+                if (Health.HealthLessPercent(0.4f))
+                {
+                    targetPos = Scr_Attack.NearTarget(_playerTr.position, colliders).transform.position;
+                    return;
+                }
+                if (Random.value < 0.5f)
+                {
+                    targetPos = Scr_Attack.NearTarget(transform.position, colliders).transform.position;
+                } else
+                {
+                    targetPos = Scr_Attack.FarTarget(transform.position, colliders).transform.position;
+                }
             } else
             {
-                targetPos = Scr_Attack.FarTarget(transform.position, colliders).transform.position;
+                targetPos = _playerTr.position;
+                stateCharacter = StateCharacter.isIdle;
             }
-        } else
-        {
-            targetPos = _playerTr.position;
-            stateCharacter = StateCharacter.isIdle;
         }
     }
     protected void WaitAttack() // Ожидание атаки, ждет момета нанести удар
     {
-        if (canState && _slice.canSlice && Vector2.Distance(targetPos, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
+        if (canState && _slice.canSlice && distanceToTarget < _slice.radiusAttack + _slice.rangeAttack)
         {
             _slice.Slice(direction, LayerMask.GetMask("Enemy"), true);
             stateCharacter = StateCharacter.isSlice;
@@ -138,5 +146,29 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     public void AnimatorEventSlice()
     {
         _slice.isSlice = false;
+    }
+    protected override void UpdateLifeSave()
+    {
+        base.UpdateLifeSave();
+        if (canState && !Health.HealthLessPercent(0.7f))
+        {
+            stateCharacter = StateCharacter.isIdle;
+        }
+        distanceToTarget = Vector2.Distance(targetPos, transform.position);
+        if (_dash.canDash && distanceToTarget > (_dash.delayDash * _dash.speedDash) * 0.7f)
+        {
+            _dash.Dash((targetPos - (Vector2)transform.position).normalized);
+            stateCharacter = StateCharacter.isDash;
+            canState = false;
+        } 
+        else if (distanceToTarget > 2)
+        {
+            motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+            transform.Translate(motion);
+        }
+        else
+        {
+            motion = Vector2.zero;
+        }
     }
 }

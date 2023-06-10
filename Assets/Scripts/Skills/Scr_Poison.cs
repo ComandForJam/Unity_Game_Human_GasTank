@@ -5,7 +5,7 @@ using UnityEngine;
 public class Scr_Poison : MonoBehaviour
 {
     float radiusPoison = 3.5f;
-    float damagePoison = 1.5f;
+    public float damagePoison = 1.5f;
 
     float cooldownPoison = 0.1f;
     bool canPoison = true;

@@ -4917,6 +4917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2305946480d7f499151b963cf423f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
   audios: []
   volumeScalesForAudios: []
   _dash: {fileID: 0}
@@ -4980,7 +4981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2cc0cb6d185014ca00d5a31786b2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedDash: 50
+  isDash: 0
+  canDash: 1
 --- !u!114 &5577775253682965595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4993,6 +4995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364ef68ff0826904f8d4956e8235de67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePoison: 1.5
 --- !u!1 &2116318933479523828
 GameObject:
   m_ObjectHideFlags: 0

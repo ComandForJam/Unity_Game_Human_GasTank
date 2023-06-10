@@ -10,9 +10,6 @@ public class Scr_Human_GasTank : Scr_BaseHero
         base.Start();
         _poison = GetComponent<Scr_Poison>();
         speed = 10;
-
-        maxHealth = 100;
-        health = maxHealth;
     }
 
     protected override void Update()
@@ -28,6 +25,8 @@ public class Scr_Human_GasTank : Scr_BaseHero
     protected override void FixedUpdate()
     {
         UpdateDamage();
+        ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
+        _poison.damagePoison = ((Scr_HealthHero)Health).UpdateDamagePoison();
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:

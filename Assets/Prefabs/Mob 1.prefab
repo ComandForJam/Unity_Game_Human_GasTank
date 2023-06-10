@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1234624160539468169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.49348655, y: 2.0831077, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99146b78dfe4bce40ba39235f4712360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 50
   audios:
   - {fileID: 8300000, guid: 94757137d69153f4dbacb8f7de4feffb, type: 3}
   - {fileID: 8300000, guid: 41b533248e0838d4894719eeb13c3507, type: 3}
@@ -192,12 +193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3c500735709b040af8c1a41f4ce9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circleSlice: {fileID: 7538945771297785229, guid: 13f07e24b288c124eb618913c123f613, type: 3}
   cooldown: 1
   canSlice: 1
   isSlice: 0
-  rangeAttack: 1
+  rangeAttack: 0.7
   damage: 5
-  radiusAttack: 1
+  radiusAttack: 0.7
 --- !u!82 &-3787438534143550618
 AudioSource:
   m_ObjectHideFlags: 0

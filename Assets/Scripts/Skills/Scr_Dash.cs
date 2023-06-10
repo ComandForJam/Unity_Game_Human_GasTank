@@ -10,8 +10,8 @@ public class Scr_Dash : MonoBehaviour
     Vector2 direction;
     float cooldownDash = 0.7f;
     float timerDash = 0;
-    float delayDash = 0.12f;
-    public float speedDash = 50;
+    public readonly float delayDash = 0.12f;
+    public readonly float speedDash = 50;
 
     public bool isDash = false;
     public bool canDash = true;

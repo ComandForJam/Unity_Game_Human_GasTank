@@ -55,6 +55,7 @@ public class Scr_Attack
 	public static void Action(Vector2 point, float radius, int layerMask, float damage, bool allTargets, bool stan)
 	{
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius, layerMask);
+		
 		if (colliders.Length == 0) return;
 
 		if (!allTargets)

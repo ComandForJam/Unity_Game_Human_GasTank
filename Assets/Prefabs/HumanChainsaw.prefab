@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca14bcc50a20b5248b9801a399133873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 100
   audios: []
   volumeScalesForAudios: []
   _dash: {fileID: 0}
@@ -144,7 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2cc0cb6d185014ca00d5a31786b2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedDash: 50
   isDash: 0
   canDash: 1
 --- !u!114 &4412389488890310893
@@ -159,10 +159,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3c500735709b040af8c1a41f4ce9e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circleSlice: {fileID: 7538945771297785229, guid: 13f07e24b288c124eb618913c123f613, type: 3}
   cooldown: 0.8
   canSlice: 1
   isSlice: 0
-  rangeAttack: 0.4
+  rangeAttack: 0.6
   damage: 5
   radiusAttack: 1.5
 --- !u!50 &1492120212363667965

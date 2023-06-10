@@ -12,10 +12,8 @@ public class Scr_BaseHero : Scr_BaseCharacter
     {
         base.Start();
         _dash = GetComponent<Scr_Dash>();
+        Health = new Scr_HealthHero(baseHealth, pointsFear);
         speed = 10;
-
-        maxHealth = 100;
-        health = maxHealth;
     }
 
     protected override void Update()
@@ -25,6 +23,7 @@ public class Scr_BaseHero : Scr_BaseCharacter
     protected override void FixedUpdate()
     {
         UpdateDamage();
+        ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:
@@ -53,6 +52,11 @@ public class Scr_BaseHero : Scr_BaseCharacter
             stateCharacter = StateCharacter.isIdle;
         }
     }
+    protected virtual void UpdateLifeSave()
+    {
+        UpdateMove();
+    }
+    
 
 }
 
