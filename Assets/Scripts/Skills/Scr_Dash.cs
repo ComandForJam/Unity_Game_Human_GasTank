@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Scr_Dash : MonoBehaviour
 {
-    ParticleSystem particleDash;
+    public ParticleSystem particleDash;
     new Collider2D collider;
+    Collider2D colliderCharacter;
+    public GameObject goColliderCharacter;
+    
 
     Vector2 direction;
     float cooldownDash = 0.7f;
@@ -18,10 +21,9 @@ public class Scr_Dash : MonoBehaviour
     
     void Start()
     {
-        particleDash = GetComponentInChildren<ParticleSystem>();
         collider = GetComponent<Collider2D>();
+        colliderCharacter = Instantiate(goColliderCharacter, transform).GetComponent<Collider2D>();
     }
-
     
     void Update()
     {
@@ -43,6 +45,7 @@ public class Scr_Dash : MonoBehaviour
             isDash = true;
             canDash = false;
             collider.enabled = false;
+            colliderCharacter.enabled = true;
             timerDash = 0;
             particleDash.Play();
         }
@@ -59,6 +62,7 @@ public class Scr_Dash : MonoBehaviour
             if (timerDash >= delayDash)
             {
                 collider.enabled = true;
+                colliderCharacter.enabled = false;
                 particleDash.Stop();
                 isDash = false;
             }

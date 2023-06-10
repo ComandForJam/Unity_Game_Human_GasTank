@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scr_BaseHero : Scr_BaseCharacter
 {
-    public Scr_Dash _dash;
+    protected Scr_Dash _dash;
     
     public int pointsFear = 10; // Очки страха
 

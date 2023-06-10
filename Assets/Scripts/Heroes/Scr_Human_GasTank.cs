@@ -5,10 +5,13 @@ using UnityEngine;
 public class Scr_Human_GasTank : Scr_BaseHero
 {
     Scr_Poison _poison;
+    Scr_Heal _heal;
+
     protected override void Start()
     {
         base.Start();
         _poison = GetComponent<Scr_Poison>();
+        _heal = GetComponent<Scr_Heal>();
         speed = 10;
     }
 
@@ -25,6 +28,7 @@ public class Scr_Human_GasTank : Scr_BaseHero
     protected override void FixedUpdate()
     {
         UpdateDamage();
+        Heal();
         ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
         _poison.damagePoison = ((Scr_HealthHero)Health).UpdateDamagePoison();
         switch (stateCharacter)
@@ -44,6 +48,9 @@ public class Scr_Human_GasTank : Scr_BaseHero
             case StateCharacter.isDash:
                 UpdateDash();
                 break;
+            case StateCharacter.isHeal:
+                UpdateMove();
+                break;
             case StateCharacter.isDeath:
                 break;
         }
@@ -55,5 +62,20 @@ public class Scr_Human_GasTank : Scr_BaseHero
         float y = Input.GetAxis("Vertical");
         motion = speed * Time.deltaTime * new Vector2(x, y);
         transform.Translate(motion);
+    }
+    void Heal()
+    {
+        if (Input.GetMouseButton(0) && canState && _heal.canHeal)
+        {
+            if (Health.health > _heal.heal / 1.2f)
+            {
+                _heal.Heal();
+                Health.Damage(_heal.heal / 1.2f);
+            }
+            else
+            {
+
+            }
+        }
     }
 }

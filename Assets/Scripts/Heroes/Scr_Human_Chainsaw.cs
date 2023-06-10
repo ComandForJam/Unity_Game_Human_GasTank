@@ -27,8 +27,8 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:
-                UpdateTarget();
                 UpdateIdle();
+                UpdateTarget();
                 break;
             case StateCharacter.isMove:
                 UpdateMove();
@@ -45,6 +45,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                 break;
             case StateCharacter.isLifeSave:
                 UpdateLifeSave();
+                UpdateTarget();
                 break;
             case StateCharacter.isDeath:
                 break;
@@ -149,13 +150,14 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected override void UpdateLifeSave()
     {
-        base.UpdateLifeSave();
+        base.UpdateLifeSave(); 
+        Debug.Log(targetPos + " " + _playerTr.position);
         if (canState && !Health.HealthLessPercent(0.7f))
         {
             stateCharacter = StateCharacter.isIdle;
         }
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
-        if (_dash.canDash && distanceToTarget > (_dash.delayDash * _dash.speedDash) * 0.7f)
+        if (_dash.canDash && distanceToTarget > (_dash.delayDash * _dash.speedDash) * 0.8f)
         {
             _dash.Dash((targetPos - (Vector2)transform.position).normalized);
             stateCharacter = StateCharacter.isDash;

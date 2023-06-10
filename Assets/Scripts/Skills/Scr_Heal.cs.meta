@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: bd2cc0cb6d185014ca00d5a31786b2e9
+guid: 5fad7c60d8fe5964ea9bc6c189f49d13
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - particleDash: {instanceID: 0}
-  - goColliderCharacter: {fileID: 5907416986631141756, guid: badfa1046e915684aab140da663b8f88, type: 3}
+  - _bulletHeal: {fileID: 5024876561882549448, guid: fca392049a24d5e40a2b806cccc13279, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

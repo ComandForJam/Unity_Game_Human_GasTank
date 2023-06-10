@@ -193,6 +193,7 @@ public enum StateCharacter
     isDash = 3,
     isDamage = 4,
     isLifeSave = 5,
+    isHeal = 6,
     isDeath = 9
 }
 
