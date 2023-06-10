@@ -141,23 +141,24 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     public virtual void Damage(float damage, bool stan, GameObject byGameObject)
     {
-        if (audioSource != null)
+        if (stateCharacter != StateCharacter.isDeath)
         {
-            PlayAudio(AudioCode.damage);
+            if (audioSource != null)
+            {
+                PlayAudio(AudioCode.damage);
+            }
+            Health.Damage(damage);
+            if (Health.IsDeath)
+            {
+                Death(byGameObject);
+                return;
+            }
+            if (stan)
+            {
+                damageTimer = 0.05f;
+                sprite.color = Color.red;
+            }
         }
-        Health.Damage(damage);
-        if (Health.IsDeath)
-        {
-            Death(byGameObject);
-            return;
-        }
-        if (stan)
-        {
-            damageTimer = 0.05f;
-            sprite.color = Color.red;
-            //stateCharacter = StateCharacter.isDamage;
-        }
-        //canState = !stan;
     }
 
     protected virtual void Death(GameObject byGameObject)
@@ -180,8 +181,7 @@ public class Scr_BaseCharacter : MonoBehaviour
             }
             stateCharacter = StateCharacter.isDeath;
             canState = false;
-            Health.health = 0;
-            Destroy(gameObject, 1);
+            //Destroy(gameObject, 1);
         }
     }
 

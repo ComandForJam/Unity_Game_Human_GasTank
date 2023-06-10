@@ -84,6 +84,14 @@ public class Scr_BotAi : Scr_BaseCharacter
     {
         _slice.isSlice = false;
     }
+    protected override void Death(GameObject byGameObject)
+    {
+        if (stateCharacter != StateCharacter.isDeath)
+        {
+            Destroy(gameObject, 1);
+        }
+        base.Death(byGameObject);
+    }
     private void OnDestroy()
     {
         if (ownerTrigger != null)

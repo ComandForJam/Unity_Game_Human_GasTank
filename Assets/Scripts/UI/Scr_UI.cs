@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Scr_UI : MonoBehaviour
 {
+    public Scr_SpawnPlayer spawnPlayer;
+
     public GameObject _healthBarPlayer;
     public GameObject _healthBarChainsaw;
+
+    public GameObject _panelGameOver;
 
     public GameObject _player;
     public GameObject _chainsaw;
@@ -15,9 +19,23 @@ public class Scr_UI : MonoBehaviour
         _healthBarChainsaw.GetComponent<Scr_HealthBar>()._owner = _chainsaw;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
+    }
+    public void GameOver()
+    {
+        _healthBarChainsaw.SetActive(false);
+        _healthBarPlayer.SetActive(false);
+        _panelGameOver.SetActive(true);
+    }
+
+    public void PlayAgain()
+    {
+        _healthBarChainsaw.SetActive(true);
+        _healthBarPlayer.SetActive(true);
+        _panelGameOver.SetActive(false);
+        spawnPlayer.GameAgain();
     }
 }

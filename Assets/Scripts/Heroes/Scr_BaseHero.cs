@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_BaseHero : Scr_BaseCharacter
 {
+    public Scr_UI ui;
     protected Scr_Dash _dash;
 
     protected override void Start()
@@ -63,8 +64,11 @@ public class Scr_BaseHero : Scr_BaseCharacter
             owner.GetComponent<Scr_BaseHero>().pointsFear += (int)heal / 2;
             pointsFear -= (int)heal / 2;
         }
-        
-
+    }
+    protected override void Death(GameObject byGameObject)
+    {
+        ui.GameOver();
+        base.Death(byGameObject);
     }
 }
 

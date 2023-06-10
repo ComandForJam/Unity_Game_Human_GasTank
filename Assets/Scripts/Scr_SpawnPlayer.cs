@@ -26,11 +26,20 @@ public class Scr_SpawnPlayer : MonoBehaviour
         Scr_UI _scr_UI = _UI.GetComponent<Scr_UI>();
         _scr_UI._player = _player;
         _scr_UI._chainsaw = _human_chainsaw;
+        _scr_UI.spawnPlayer = this;
+
+        _player.GetComponent<Scr_BaseHero>().ui = _scr_UI;
+        _human_chainsaw.GetComponent<Scr_BaseHero>().ui = _scr_UI;
     }
 
-    
     void Update()
     {
         
+    }
+    
+    public void GameAgain()
+    {
+        _player.transform.position = transform.position;
+        _human_chainsaw.transform.position = transform.position;
     }
 }
