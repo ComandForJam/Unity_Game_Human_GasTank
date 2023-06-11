@@ -23,7 +23,7 @@ public class Scr_Mob_1 : Scr_BotAi
     protected override void UpdateMove()
     {
         base.UpdateMove();
-        Vector2 targetPos = _transformTarget.position;
+        Vector2 targetPos = TransformTarget.position;
         if (Vector2.Distance(targetPos, transform.position) > (_slice.radiusAttack + _slice.rangeAttack)  * 0.9f)
         {
             motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;

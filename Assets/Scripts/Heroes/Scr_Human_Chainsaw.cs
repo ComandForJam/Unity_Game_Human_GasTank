@@ -24,6 +24,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     {
         UpdateDamage();
         ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
+        _slice.damage = ((Scr_HealthHero)Health).UpdateDamageSlice();
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:

@@ -54,7 +54,7 @@ public class Scr_TriggerMobs : MonoBehaviour
             AddMob(collision.gameObject);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    /*private void OnTriggerExit2D(Collider2D collision)
     {
         Scr_BaseHero hero = collision.GetComponent<Scr_BaseHero>();
 
@@ -66,7 +66,7 @@ public class Scr_TriggerMobs : MonoBehaviour
                 heroes.Remove(hero);
             }
         }
-    }
+    }*/
 
     public void AddMob(GameObject mob)
     {
@@ -109,11 +109,11 @@ public class Scr_TriggerMobs : MonoBehaviour
                 {
                     if (i < countOnGastank)
                     {
-                        listBotsInArea[i]._transformTarget = heroes[1].transform;
+                        listBotsInArea[i].TransformTarget = heroes[1].transform;
                     }
                     else
                     {
-                        listBotsInArea[i]._transformTarget = heroes[0].transform;
+                        listBotsInArea[i].TransformTarget = heroes[0].transform;
                     }
                 }
             } else if (heroes.Count == 1)
@@ -121,11 +121,28 @@ public class Scr_TriggerMobs : MonoBehaviour
                 UpdateAudio();
                 foreach (var bot in listBotsInArea)
                 {
-                    bot._transformTarget = heroes[0].transform;
+                    bot.TransformTarget = heroes[0].transform;
+                }
+            } else if (heroes.Count == 0)
+            {
+                foreach (var bot in listBotsInArea)
+                {
+                    bot.TransformTarget = null;
                 }
             }
             isChangeInFight = false;
         }
+    }
+    public void TargetNull(Scr_BaseHero hero)
+    {
+        heroes.Clear();
+        /*
+        if (heroes.Contains(hero))
+        {
+            heroes.Remove(hero);
+            isChangeInFight = true;
+        }*/
+
     }
     void UpdateAudio()
     {

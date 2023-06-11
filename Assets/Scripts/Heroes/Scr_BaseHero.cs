@@ -67,8 +67,17 @@ public class Scr_BaseHero : Scr_BaseCharacter
     }
     protected override void Death(GameObject byGameObject)
     {
+        Scr_BotAi bot = byGameObject.GetComponent<Scr_BotAi>();
+        if (bot != null)
+        {
+            bot.ownerTrigger.TargetNull(this);
+        }
         ui.GameOver();
         base.Death(byGameObject);
+    }
+    public void LockController()
+    {
+        stateCharacter = StateCharacter.isDeath;
     }
 }
 

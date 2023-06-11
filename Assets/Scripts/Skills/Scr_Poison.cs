@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Scr_Poison : MonoBehaviour
 {
+    public ParticleSystem particlePoison;
+
     float radiusPoison = 3.5f;
     public float damagePoison = 1.5f;
 
     float cooldownPoison = 0.1f;
     bool canPoison = true;
-    float timerPoison = 0; 
+    float timerPoison = 0;
+    public bool isDeath = false;
 
     void Start()
     {
@@ -38,11 +41,17 @@ public class Scr_Poison : MonoBehaviour
     }
     private void Poisoning()
     {
-        if (canPoison)
+        if (!isDeath)
         {
-            Scr_Attack.ActionPoison(transform.position, radiusPoison, LayerMask.GetMask("Enemy"), damagePoison, gameObject);
-            canPoison = false;
-            timerPoison = 0;
+            if (canPoison)
+            {
+                Scr_Attack.ActionPoison(transform.position, radiusPoison, LayerMask.GetMask("Enemy"), damagePoison, gameObject);
+                canPoison = false;
+                timerPoison = 0;
+            }
+        } else
+        {
+                particlePoison.Stop();
         }
     }
 }

@@ -5,9 +5,8 @@ using UnityEngine;
 public class Scr_BotAi : Scr_BaseCharacter
 {
     public Scr_TriggerMobs ownerTrigger;
-    public Transform _transformTarget;
     protected Scr_Slice _slice;
-
+    protected Transform transformTarget;
     protected override void Start()
     {
         base.Start();
@@ -21,6 +20,7 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void FixedUpdate()
     {
         UpdateDamage();
+        //UpdateState();
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:
@@ -39,14 +39,28 @@ public class Scr_BotAi : Scr_BaseCharacter
                 break;
         }
     }
+    public Transform TransformTarget 
+    { 
+        get { return transformTarget; } 
+        set 
+        {
+            transformTarget = value;
+            if (value == null)
+            {
+                stateCharacter = StateCharacter.isIdle;
+            }
+        } 
+    }
     protected override void UpdateIdle()
     {
         base.UpdateIdle();
         canState = true;
-        if (_transformTarget != null && Vector2.Distance(_transformTarget.position, transform.position) > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
+        if (TransformTarget != null)
         {
             stateCharacter = StateCharacter.isMove;
+            return;
         }
+
     }
     protected override void UpdateMove()
     {
@@ -55,18 +69,28 @@ public class Scr_BotAi : Scr_BaseCharacter
 
     protected void WaitAttack() // Ожидание атаки, ждет момета нанести удар
     {
-        if (canState && _slice.canSlice && Vector2.Distance(_transformTarget.position, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
-        {
-            _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
-            stateCharacter = StateCharacter.isSlice;
-            canState = false;
-            if (audioSource != null)
-            {
-                PlayAudio(AudioCode.attack);
-            }
-            if (animator != null)
-            {
-                animator.SetBool("isSlice", true);
+        
+        if (canState) {
+            if (_slice.canSlice) { 
+                
+                if (Vector2.Distance(TransformTarget.position, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
+                {
+                    direction = (TransformTarget.position - transform.position).normalized;
+                    Flip();
+                    UpdateAnimator();
+
+                    _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
+                    stateCharacter = StateCharacter.isSlice;
+                    canState = false;
+                    if (audioSource != null)
+                    {
+                        PlayAudio(AudioCode.attack);
+                    }
+                    if (animator != null)
+                    {
+                        animator.SetBool("isSlice", true);
+                    }
+                }
             }
         }
     }
@@ -97,6 +121,13 @@ public class Scr_BotAi : Scr_BaseCharacter
         if (ownerTrigger != null)
         {
             ownerTrigger.RemoveMob(this);
+        }
+    }
+    protected void UpdateState()
+    {
+        if (canState && TransformTarget == null)
+        {
+            stateCharacter = StateCharacter.isIdle;
         }
     }
 }

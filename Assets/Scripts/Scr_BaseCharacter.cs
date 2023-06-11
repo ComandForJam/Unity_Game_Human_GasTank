@@ -130,7 +130,7 @@ public class Scr_BaseCharacter : MonoBehaviour
     {
 
     }
-    void Flip()
+    protected void Flip()
     {
         if (faceRight && direction.x < 0 || !faceRight && direction.x > 0)
         {

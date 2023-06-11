@@ -29,6 +29,9 @@ public class Scr_UI : MonoBehaviour
         _healthBarChainsaw.SetActive(false);
         _healthBarPlayer.SetActive(false);
         _panelGameOver.SetActive(true);
+
+        _player.GetComponent<Scr_BaseHero>().LockController();
+        _chainsaw.GetComponent<Scr_BaseHero>().LockController();
     }
 
     public void PlayAgain()

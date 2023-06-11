@@ -19,6 +19,10 @@ public class Scr_HealthHero : Scr_Health
     {
         return health / 90;
     }
+    public float UpdateDamageSlice()
+    {
+        return maxHealth / 10;
+    }
     public void UpdateMaxHealth(float fear)
     {
         float prevMax = maxHealth;

@@ -181,7 +181,6 @@ MonoBehaviour:
   - 0.5
   - 20
   ownerTrigger: {fileID: 0}
-  _transformTarget: {fileID: 0}
 --- !u!114 &2926443147587660234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +198,7 @@ MonoBehaviour:
   canSlice: 1
   isSlice: 0
   rangeAttack: 0.7
-  damage: 3
+  damage: 13.15
   radiusAttack: 0.7
 --- !u!82 &-3787438534143550618
 AudioSource:

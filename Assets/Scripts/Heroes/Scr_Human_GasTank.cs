@@ -52,6 +52,7 @@ public class Scr_Human_GasTank : Scr_BaseHero
                 UpdateMove();
                 break;
             case StateCharacter.isDeath:
+                UpdateDeath();
                 break;
         }
     }
@@ -77,5 +78,11 @@ public class Scr_Human_GasTank : Scr_BaseHero
 
             }
         }
+    }
+
+    protected void UpdateDeath()
+    {
+        _poison.isDeath = true;
+        _heal.isDeath = true;
     }
 }

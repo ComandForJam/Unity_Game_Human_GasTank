@@ -15,11 +15,13 @@ public class Scr_HealthBar : MonoBehaviour
 
     float health;
     float maxHealth;
+
+    float expandKoef = 3;
     void Start()
     {
         _hero = _owner.GetComponent<Scr_BaseHero>();
         rectBackground = _background.rectTransform;
-        rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _hero.Health.maxHealth * 2);
+        rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _hero.Health.maxHealth * expandKoef);
 
         _barNum.text = _hero.Health.health.ToString();
         health = _hero.Health.health;
@@ -32,7 +34,7 @@ public class Scr_HealthBar : MonoBehaviour
         if (_hero.Health.maxHealth != maxHealth)
         {
             maxHealth = _hero.Health.maxHealth;
-            rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHealth * 2);
+            rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHealth * expandKoef);
         }
         if (_hero.Health.health != health)
         {

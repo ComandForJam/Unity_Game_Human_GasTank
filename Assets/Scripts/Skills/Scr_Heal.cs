@@ -10,6 +10,7 @@ public class Scr_Heal : MonoBehaviour
     public float heal;
     float timer = 0;
     public bool canHeal = true;
+    public bool isDeath = false;
     
     void Start()
     {
@@ -34,16 +35,19 @@ public class Scr_Heal : MonoBehaviour
     }
     public void Heal()
     {
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        float rotateZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        if (!isDeath)
+        {
+            Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            float rotateZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
 
-        GameObject bulletHeal = Instantiate(_bulletHeal);
-        bulletHeal.transform.position = transform.position + difference.normalized * 1;
-        bulletHeal.transform.localRotation = Quaternion.Euler(0f, 0f, rotateZ);
-        bulletHeal.GetComponent<Scr_BulletHeal>().owner = gameObject;
-        bulletHeal.GetComponent<Scr_BulletHeal>().heal = heal;
+            GameObject bulletHeal = Instantiate(_bulletHeal);
+            bulletHeal.transform.position = transform.position + difference.normalized * 1;
+            bulletHeal.transform.localRotation = Quaternion.Euler(0f, 0f, rotateZ);
+            bulletHeal.GetComponent<Scr_BulletHeal>().owner = gameObject;
+            bulletHeal.GetComponent<Scr_BulletHeal>().heal = heal;
 
-        canHeal = false;
-        timer = 0;
+            canHeal = false;
+            timer = 0;
+        }
     }
 }

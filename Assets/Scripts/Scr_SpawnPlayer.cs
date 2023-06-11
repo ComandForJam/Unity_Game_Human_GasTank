@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scr_SpawnPlayer : MonoBehaviour
 {
@@ -41,5 +42,6 @@ public class Scr_SpawnPlayer : MonoBehaviour
     {
         _player.transform.position = transform.position;
         _human_chainsaw.transform.position = transform.position;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

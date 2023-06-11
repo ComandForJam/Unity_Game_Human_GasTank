@@ -12,8 +12,7 @@ public class Scr_Slice : MonoBehaviour
     public bool isSlice = false;
 
     public float rangeAttack;
-    [SerializeField]
-    float damage;
+    public float damage;
     public float radiusAttack;
 
     void Start()
