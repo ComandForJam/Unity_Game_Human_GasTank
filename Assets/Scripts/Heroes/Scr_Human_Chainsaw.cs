@@ -120,6 +120,11 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     {
         if (canState && !isTargetImportant)
         {
+            if (Vector2.Distance(transform.position, _playerTr.position) > Camera.main.orthographicSize)
+            {
+                targetPos = _playerTr.position;
+                return;
+            }
             if (Health.HealthLessPercent(0.2f))
             {
                 stateCharacter = StateCharacter.isLifeSave;
