@@ -48,7 +48,7 @@ public class Scr_BaseHero : Scr_BaseCharacter
         if (!_dash.isDash)
         {
             canState = true;
-            stateCharacter = StateCharacter.isIdle;
+            stateCharacter = StateCharacter.isMove;
         }
     }
     protected virtual void UpdateLifeSave()

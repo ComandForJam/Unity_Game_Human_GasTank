@@ -161,10 +161,12 @@ public class Scr_BaseCharacter : MonoBehaviour
             }
             if (stan)
             {
-                damageTimer = 0.05f;
+                damageTimer = 0.2f;
                 sprite.color = Color.red;
             }
         }
+        if (stan)
+            transform.Translate(-(byGameObject.transform.position - transform.position).normalized * 0.5f);
     }
 
     protected virtual void Death(GameObject byGameObject)

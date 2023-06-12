@@ -28,13 +28,15 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         switch (stateCharacter)
         {
             case StateCharacter.isIdle:
-                UpdateIdle();
                 UpdateTarget();
+                UpdateIdle();
+                
                 break;
             case StateCharacter.isMove:
+                UpdateTarget();
                 UpdateMove();
                 WaitAttack();
-                UpdateTarget();
+                
                 break;
             case StateCharacter.isDamage:
                 break;
@@ -55,34 +57,35 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected override void UpdateIdle()
     {
-        base.UpdateIdle();
         canState = true;
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
         if (distanceToTarget > 3)
         {
-            motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+            motion = speed / 3 * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
             transform.Translate(motion);
         } else
         {
             motion = Vector2.zero;
         }
+        base.UpdateIdle();
     }
     protected override void UpdateMove()
     {
-        base.UpdateMove();
+        if (GoOut()) return;
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
         if (distanceToTarget > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
         {
             FindPath();
             motion += (targetPos - (Vector2)transform.position).normalized;
 
-            motion = motion.normalized * speed * Time.fixedDeltaTime;
+            motion = speed * Time.fixedDeltaTime * motion.normalized;
         }
         else
         {
             motion = Vector2.zero;
         }
         transform.Translate(motion);
+        base.UpdateMove();
     }
 
     void UpdateTarget()
@@ -121,18 +124,26 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected void WaitAttack() // Ожидание атаки, ждет момета нанести удар
     {
-        if (canState && _slice.canSlice && distanceToTarget < _slice.radiusAttack + _slice.rangeAttack)
+        if (canState)
         {
-            _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
-            stateCharacter = StateCharacter.isSlice;
-            canState = false;
-            if (audioSource != null)
+            if (_slice.canSlice)
             {
-                PlayAudio(AudioCode.attack);
-            }
-            if (animator != null)
-            {
-                animator.SetBool("isSlice", true);
+                if (Vector2.Distance(targetPos, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
+                {
+                    UpdateAnimator();
+
+                    _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
+                    stateCharacter = StateCharacter.isSlice;
+                    canState = false;
+                    if (audioSource != null)
+                    {
+                        PlayAudio(AudioCode.attack);
+                    }
+                    if (animator != null)
+                    {
+                        animator.SetBool("isSlice", true);
+                    }
+                }
             }
         }
     }
@@ -176,5 +187,20 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         {
             motion = Vector2.zero;
         }
+    }
+    bool GoOut()
+    {
+        if (canState && _dash.canDash)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2, LayerMask.GetMask("Enemy"));
+            if (colliders.Length > 3)
+            {
+                _dash.Dash(-(colliders[0].transform.position - transform.position).normalized);
+                stateCharacter = StateCharacter.isDash;
+                canState = false;
+                return true;
+            }
+        }
+        return false;
     }
 }
