@@ -200,11 +200,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleSlice: {fileID: 7538945771297785229, guid: 13f07e24b288c124eb618913c123f613, type: 3}
   cooldown: 1.2
+  beforeTime: 0.3
   canSlice: 1
   isSlice: 0
   rangeAttack: 0.7
   damage: 5.01
-  radiusAttack: 0.7
+  radiusAttack: 1
 --- !u!82 &-3787438534143550618
 AudioSource:
   m_ObjectHideFlags: 0

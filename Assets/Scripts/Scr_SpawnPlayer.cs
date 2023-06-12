@@ -31,6 +31,7 @@ public class Scr_SpawnPlayer : MonoBehaviour
 
         _player.GetComponent<Scr_BaseHero>().ui = _scr_UI;
         _human_chainsaw.GetComponent<Scr_BaseHero>().ui = _scr_UI;
+        _player.GetComponent<Scr_Human_GasTank>()._chainsaw = _human_chainsaw.GetComponent<Scr_Human_Chainsaw>();
     }
 
     void Update()

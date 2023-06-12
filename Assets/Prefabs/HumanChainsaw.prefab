@@ -5063,6 +5063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleSlice: {fileID: 7538945771297785229, guid: 13f07e24b288c124eb618913c123f613, type: 3}
   cooldown: 0.8
+  beforeTime: 0.1
   canSlice: 1
   isSlice: 0
   rangeAttack: 0.6

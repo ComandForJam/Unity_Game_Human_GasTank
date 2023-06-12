@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_Human_GasTank : Scr_BaseHero
 {
+    public Scr_Human_Chainsaw _chainsaw;
     Scr_Poison _poison;
     Scr_Heal _heal;
     public Transform dirIndicator;
@@ -24,6 +25,10 @@ public class Scr_Human_GasTank : Scr_BaseHero
             _dash.Dash(direction);
             stateCharacter = StateCharacter.isDash;
             canState = false;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            _chainsaw.SetTargetPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
     protected override void FixedUpdate()

@@ -90,19 +90,25 @@ public class Scr_BotAi : Scr_BaseCharacter
 
     protected void WaitAttack() // Ожидание атаки, ждет момета нанести удар
     {
-
-        if (canState) {
+        if (canState)
+        {
             if (!ownerTrigger.isAngry)
             {
                 stateCharacter = StateCharacter.isIdle;
                 return;
             }
-            if (_slice.canSlice) { 
-                
-                if (Vector2.Distance(TransformTarget.position, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
+            if (_slice.canSlice)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Heroes"));
+                if (colliders.Length > 0)
                 {
-                    
+                    Vector2 prevMotion = motion;
+                    motion = (colliders[0].transform.position - transform.position).normalized;
+                    direction = motion;
                     UpdateAnimator();
+                    motion = Vector2.zero;
+                    UpdateAnimator();
+                    motion = prevMotion;
 
                     _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
                     stateCharacter = StateCharacter.isSlice;
@@ -122,7 +128,7 @@ public class Scr_BotAi : Scr_BaseCharacter
 
     protected override void UpdateSlice()
     {
-        if (!_slice.isSlice)
+        if (!_slice.canState)
         {
             animator.SetBool("isSlice", false);
             canState = true;

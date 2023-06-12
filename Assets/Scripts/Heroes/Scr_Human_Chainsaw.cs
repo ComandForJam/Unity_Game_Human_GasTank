@@ -8,6 +8,8 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected Scr_Slice _slice;
     protected Vector2 targetPos;
     protected float distanceToTarget;
+
+    bool isTargetImportant = false;
     protected override void Start()
     {
         base.Start();
@@ -22,6 +24,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected override void FixedUpdate()
     {
+        //Debug.Log(stateCharacter + " " + canState + " " + isTargetImportant ); ;
         UpdateDamage();
         ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
         _slice.damage = ((Scr_HealthHero)Health).UpdateDamageSlice();
@@ -30,13 +33,11 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
             case StateCharacter.isIdle:
                 UpdateTarget();
                 UpdateIdle();
-                
                 break;
             case StateCharacter.isMove:
                 UpdateTarget();
                 UpdateMove();
                 WaitAttack();
-                
                 break;
             case StateCharacter.isDamage:
                 break;
@@ -67,13 +68,38 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         {
             motion = Vector2.zero;
         }
+        if (isTargetImportant) 
+        {
+            stateCharacter = StateCharacter.isMove;
+        }
         base.UpdateIdle();
     }
     protected override void UpdateMove()
     {
         if (GoOut()) return;
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
-        if (distanceToTarget > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
+        if (canState && _dash.canDash && distanceToTarget > (_dash.delayDash * _dash.speedDash) * 0.8f)
+        {
+            _dash.Dash((targetPos - (Vector2)transform.position).normalized);
+            stateCharacter = StateCharacter.isDash;
+            canState = false;
+            return;
+        }
+        if (isTargetImportant)
+        {
+            if (distanceToTarget >= 0.5f)
+            {
+                FindPath();
+                motion += (targetPos - (Vector2)transform.position).normalized;
+
+                motion = speed * Time.fixedDeltaTime * motion.normalized;
+            }
+            else
+            {
+                isTargetImportant = false;
+            }
+        } 
+        else if (distanceToTarget > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
         {
             FindPath();
             motion += (targetPos - (Vector2)transform.position).normalized;
@@ -90,7 +116,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
     void UpdateTarget()
     {
-        if (canState)
+        if (canState && !isTargetImportant)
         {
             if (Health.HealthLessPercent(0.2f))
             {
@@ -128,9 +154,16 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         {
             if (_slice.canSlice)
             {
-                if (Vector2.Distance(targetPos, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Enemy"));
+                if (colliders.Length > 0)
                 {
+                    Vector2 prevMotion = motion;
+                    motion = (colliders[0].transform.position - transform.position).normalized;
+                    direction = motion;
                     UpdateAnimator();
+                    motion = Vector2.zero;
+                    UpdateAnimator();
+                    motion = prevMotion;
 
                     _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
                     stateCharacter = StateCharacter.isSlice;
@@ -150,7 +183,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
     protected override void UpdateSlice()
     {
-        if (!_slice.isSlice)
+        if (!_slice.canState)
         {
             if (animator != null)
             {
@@ -202,5 +235,11 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
             }
         }
         return false;
+    }
+
+    public void SetTargetPos(Vector2 pos)
+    {
+        targetPos = pos;
+        isTargetImportant = true;
     }
 }
