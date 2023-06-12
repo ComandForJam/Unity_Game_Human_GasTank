@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_BaseCharacter : MonoBehaviour
 {// Скрипт, который наследуют все персонажи 
+    public GameObject particlePointsFear;
     public int pointsFear = 10; // Очки страха
 
     public Scr_Health Health;
@@ -173,8 +174,12 @@ public class Scr_BaseCharacter : MonoBehaviour
             Scr_BaseHero hero = byGameObject.GetComponent<Scr_BaseHero>();
             if (hero != null)
             {
-                hero.pointsFear += pointsFear;
-                pointsFear = 1;
+                for (int i = 0; i < pointsFear; i++)
+                {
+                    GameObject particle = Instantiate(particlePointsFear);
+                    particle.transform.position = (Vector2)transform.position + new Vector2((Random.value * transform.localScale.y), (Random.value * transform.localScale.y));
+                    particle.GetComponent<Scr_PointsFear>().target = byGameObject.transform;
+                }
             }
             if (animator != null)
             {
