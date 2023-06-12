@@ -73,12 +73,16 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
         if (distanceToTarget > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
         {
-            motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
-            transform.Translate(motion);
-        } else
+            FindPath();
+            motion += (targetPos - (Vector2)transform.position).normalized;
+
+            motion = motion.normalized * speed * Time.fixedDeltaTime;
+        }
+        else
         {
             motion = Vector2.zero;
         }
+        transform.Translate(motion);
     }
 
     void UpdateTarget()

@@ -9,6 +9,7 @@ public class Scr_TriggerMobs : MonoBehaviour
     List<Scr_BaseHero> heroes;
     AudioSource audioSource;
 
+    public bool isAngry = false;
     bool isChangeInFight = false;
 
     void Start()
@@ -36,6 +37,28 @@ public class Scr_TriggerMobs : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if(isAngry)
+        {
+            foreach (var item in heroes)
+            {
+                if (item.stateCharacter == StateCharacter.isDeath)
+                {
+
+                    heroes.Clear();
+                    isChangeInFight = true;
+                    break;
+                }
+            }
+            if (heroes.Count == 0)
+            {
+                isAngry = false;
+                foreach (var bot in listBotsInArea)
+                {
+                    bot.TransformTarget = null;
+                }
+            }
+        }
+        
         UpdateFight();
         RemoveMobs();
     }
@@ -75,6 +98,7 @@ public class Scr_TriggerMobs : MonoBehaviour
         {
             listBotsInArea.Add(child);
             child.ownerTrigger = this;
+            child.colliderOwner = GetComponent<BoxCollider2D>();
         }
     } // ƒобавл€ет новых мобов в основной список
     public void RemoveMob(Scr_BotAi child)
@@ -99,6 +123,7 @@ public class Scr_TriggerMobs : MonoBehaviour
         {
             if (heroes.Count > 1)
             {
+                isAngry = true;
                 UpdateAudio();
 
                 float fear1 = heroes[0].pointsFear;
@@ -118,6 +143,7 @@ public class Scr_TriggerMobs : MonoBehaviour
                 }
             } else if (heroes.Count == 1)
             {
+                isAngry = true;
                 UpdateAudio();
                 foreach (var bot in listBotsInArea)
                 {
@@ -125,6 +151,7 @@ public class Scr_TriggerMobs : MonoBehaviour
                 }
             } else if (heroes.Count == 0)
             {
+                isAngry = false;
                 foreach (var bot in listBotsInArea)
                 {
                     bot.TransformTarget = null;

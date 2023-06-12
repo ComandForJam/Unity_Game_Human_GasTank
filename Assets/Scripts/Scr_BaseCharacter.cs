@@ -28,7 +28,7 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     protected bool isDeath = false;
 
-    protected StateCharacter stateCharacter;
+    public StateCharacter stateCharacter;
     protected bool canState = true; // Можно ли изменить состояние
 
     protected virtual void Start()
@@ -73,6 +73,11 @@ public class Scr_BaseCharacter : MonoBehaviour
     }
     protected virtual void UpdateIdle()
     {
+        if (motion != Vector2.zero)
+        {
+            direction = motion.normalized;
+            Flip();
+        }
         UpdateAnimator();
     }
     protected virtual void UpdateMove()
@@ -190,6 +195,26 @@ public class Scr_BaseCharacter : MonoBehaviour
         lastPlayed = code;
         if (audios.Count - 1 >= (int)code && volumeScalesForAudios.Count - 1 >= (int)code)
             audioSource.PlayOneShot(audios[(int)code], volumeScalesForAudios[(int)code]);
+    }
+    protected void FindPath()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2, LayerMask.GetMask("Enemy"));
+
+
+        if (colliders.Length == 0) return;
+        Vector2 vector = (colliders[0].transform.position - transform.position).normalized;
+        if (colliders.Length > 1)
+        {
+            foreach (var item in colliders)
+            {
+                vector += (Vector2)(item.transform.position - transform.position).normalized;
+            }
+        }
+        if (Vector2.Angle(vector, motion.normalized) < 20)
+        {
+            motion -= vector;
+        }
+
     }
 }
 public enum StateCharacter

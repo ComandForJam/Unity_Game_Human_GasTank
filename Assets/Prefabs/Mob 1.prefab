@@ -128,7 +128,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -180,7 +180,10 @@ MonoBehaviour:
   - 1
   - 0.5
   - 20
+  stateCharacter: 0
   ownerTrigger: {fileID: 0}
+  colliderOwner: {fileID: 0}
+  transformTarget: {fileID: 0}
 --- !u!114 &2926443147587660234
 MonoBehaviour:
   m_ObjectHideFlags: 0

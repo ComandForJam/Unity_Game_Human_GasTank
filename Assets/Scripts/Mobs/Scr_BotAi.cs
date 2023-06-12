@@ -5,8 +5,12 @@ using UnityEngine;
 public class Scr_BotAi : Scr_BaseCharacter
 {
     public Scr_TriggerMobs ownerTrigger;
+    public BoxCollider2D colliderOwner;
     protected Scr_Slice _slice;
+    [SerializeField]
     protected Transform transformTarget;
+    protected Vector2 targetIdle;
+    
     protected override void Start()
     {
         base.Start();
@@ -45,38 +49,59 @@ public class Scr_BotAi : Scr_BaseCharacter
         set 
         {
             transformTarget = value;
-            if (value == null)
-            {
-                stateCharacter = StateCharacter.isIdle;
-            }
         } 
     }
     protected override void UpdateIdle()
     {
-        base.UpdateIdle();
+        
         canState = true;
-        if (TransformTarget != null)
+        if (ownerTrigger.isAngry)
         {
             stateCharacter = StateCharacter.isMove;
             return;
         }
+        if (targetIdle != null && Vector2.Distance(transform.position, targetIdle) > 1)
+        {
+            FindPath();
+            motion += (targetIdle - (Vector2)transform.position).normalized;
+
+            motion = speed / 3 * Time.fixedDeltaTime * motion.normalized;
+            transform.Translate(motion);
+        } else
+        {
+            targetIdle = new Vector2((Random.value * colliderOwner.size.x), (Random.value * colliderOwner.size.y));
+            targetIdle -= targetIdle / 2;
+            targetIdle += (Vector2)ownerTrigger.transform.position;
+        }
+        base.UpdateIdle();
 
     }
     protected override void UpdateMove()
     {
+        if (canState && !ownerTrigger.isAngry)
+        {
+            stateCharacter = StateCharacter.isIdle;
+            return;
+        }
+        direction = (TransformTarget.position - transform.position).normalized;
+        motion = direction;
         base.UpdateMove();
     }
 
     protected void WaitAttack() // Ожидание атаки, ждет момета нанести удар
     {
-        
+
         if (canState) {
+            if (!ownerTrigger.isAngry)
+            {
+                stateCharacter = StateCharacter.isIdle;
+                return;
+            }
             if (_slice.canSlice) { 
                 
                 if (Vector2.Distance(TransformTarget.position, transform.position) < _slice.radiusAttack + _slice.rangeAttack)
                 {
-                    direction = (TransformTarget.position - transform.position).normalized;
-                    Flip();
+                    
                     UpdateAnimator();
 
                     _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
@@ -130,4 +155,6 @@ public class Scr_BotAi : Scr_BaseCharacter
             stateCharacter = StateCharacter.isIdle;
         }
     }
+
+    
 }
