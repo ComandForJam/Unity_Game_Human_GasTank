@@ -6,6 +6,7 @@ public class Scr_Human_GasTank : Scr_BaseHero
 {
     Scr_Poison _poison;
     Scr_Heal _heal;
+    public Transform dirIndicator;
 
     protected override void Start()
     {
@@ -27,6 +28,7 @@ public class Scr_Human_GasTank : Scr_BaseHero
     }
     protected override void FixedUpdate()
     {
+        UpdateDirIndicator();
         UpdateDamage();
         Heal();
         ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
@@ -84,5 +86,11 @@ public class Scr_Human_GasTank : Scr_BaseHero
     {
         _poison.isDeath = true;
         _heal.isDeath = true;
+    }
+    void UpdateDirIndicator()
+    {
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        float rotateZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        dirIndicator.rotation = Quaternion.Euler(0,0, rotateZ);
     }
 }
