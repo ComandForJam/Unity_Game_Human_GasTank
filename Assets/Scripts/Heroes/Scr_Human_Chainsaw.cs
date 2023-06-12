@@ -6,6 +6,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 {
     public Transform _playerTr;
     protected Scr_Slice _slice;
+    protected Scr_SliceAround _sliceAround;
     protected Vector2 targetPos;
     protected float distanceToTarget;
 
@@ -15,6 +16,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         base.Start();
         targetPos = transform.position;
         _slice = GetComponent<Scr_Slice>();
+        _sliceAround = GetComponent<Scr_SliceAround>();
         speed = 10;
     }
 
@@ -62,7 +64,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
         if (distanceToTarget > 3)
         {
-            motion = speed / 3 * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+            motion = speed / 2 * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
             transform.Translate(motion);
         } else
         {
@@ -108,7 +110,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         }
         else
         {
-            motion = Vector2.zero;
+            targetPos = (Vector2)transform.position +  new Vector2((Random.value * 2), (Random.value * 2));
         }
         transform.Translate(motion);
         base.UpdateMove();
@@ -153,13 +155,32 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     {
         if (canState)
         {
+            if (_sliceAround.canSlice)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Enemy"));
+                if (colliders.Length > 2)
+                {
+                    _sliceAround.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
+                    stateCharacter = StateCharacter.isSlice;
+                    canState = false;
+                    if (audioSource != null)
+                    {
+                        PlayAudio(AudioCode.attackAround);
+                    }
+                    if (animator != null)
+                    {
+                        animator.SetBool("isSliceAround", true);
+                    }
+                    return;
+                }
+            }
             if (_slice.canSlice)
             {
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Enemy"));
+                
                 if (colliders.Length > 0)
                 {
-
-                    _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
+                        _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
                     stateCharacter = StateCharacter.isSlice;
                     canState = false;
                     if (audioSource != null)
@@ -182,6 +203,15 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
             if (animator != null)
             {
                 animator.SetBool("isSlice", false);
+            }
+            canState = true;
+            stateCharacter = StateCharacter.isMove;
+        }
+        if (_sliceAround.canState)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("isSliceAround", false);
             }
             canState = true;
             stateCharacter = StateCharacter.isMove;
@@ -217,7 +247,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     bool GoOut()
     {
-        if (canState && _dash.canDash)
+        if (canState && _dash.canDash && (!_sliceAround.canSlice || Health.HealthLessPercent(0.4f)))
         {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2, LayerMask.GetMask("Enemy"));
             if (colliders.Length > 3)

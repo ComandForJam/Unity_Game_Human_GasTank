@@ -246,5 +246,6 @@ public enum AudioCode // Коды звуков
 {
     attack = 0, // удара
     damage = 1, // получения урона
-    death = 2 // смерти
+    death = 2, // смерти
+    attackAround = 3 // Сильная атака
 }

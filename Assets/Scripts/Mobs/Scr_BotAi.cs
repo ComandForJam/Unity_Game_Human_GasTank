@@ -69,7 +69,7 @@ public class Scr_BotAi : Scr_BaseCharacter
             transform.Translate(motion);
         } else
         {
-            targetIdle = new Vector2((Random.value * colliderOwner.size.x), (Random.value * colliderOwner.size.y));
+            targetIdle = new Vector2((Random.value * colliderOwner.size.x - 5), (Random.value * colliderOwner.size.y - 5));
             targetIdle -= targetIdle / 2;
             targetIdle += (Vector2)ownerTrigger.transform.position;
         }
