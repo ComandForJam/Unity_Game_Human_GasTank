@@ -161,7 +161,7 @@ MonoBehaviour:
   audios: []
   volumeScalesForAudios: []
   stateCharacter: 0
-  ui: {fileID: 0}
+  _chainsaw: {fileID: 0}
   dirIndicator: {fileID: 8443301800733169217}
 --- !u!114 &3284283899819291526
 MonoBehaviour:
@@ -717,7 +717,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.13187872, g: 0.49056602, b: 0.04396581, a: 0.56078434}
+      maxColor: {r: 0.13187872, g: 0.49056602, b: 0.04396581, a: 0.44705883}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -779,7 +779,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1242,7 +1242,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 3.5
+      value: 3
       mode: 0
       spread: 0
       speed:

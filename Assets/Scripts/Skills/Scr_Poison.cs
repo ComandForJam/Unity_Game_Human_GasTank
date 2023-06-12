@@ -6,7 +6,7 @@ public class Scr_Poison : MonoBehaviour
 {
     public ParticleSystem particlePoison;
 
-    float radiusPoison = 3.5f;
+    float radiusPoison = 3f;
     public float damagePoison = 1.5f;
 
     float cooldownPoison = 0.2f;
