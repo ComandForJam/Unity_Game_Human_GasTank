@@ -3,7 +3,14 @@ guid: 3f6c4b1ef14731345be5484719924e6c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spawnPlayer: {instanceID: 0}
+  - _healthBarPlayer: {instanceID: 0}
+  - _healthBarChainsaw: {instanceID: 0}
+  - _panelGameOver: {instanceID: 0}
+  - _player: {instanceID: 0}
+  - _chainsaw: {instanceID: 0}
+  - labelDamage: {fileID: 854882807824957405, guid: 6b1c06c297d57e14b9e364206b478bb0, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

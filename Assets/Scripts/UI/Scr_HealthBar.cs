@@ -10,8 +10,8 @@ public class Scr_HealthBar : MonoBehaviour
     public TMPro.TextMeshProUGUI _barNum;
     RectTransform rectBackground;
 
-    public GameObject _owner;
-    Scr_BaseHero _hero;
+    //public GameObject _owner;
+    public Scr_BaseHero _hero;
 
     float health;
     float maxHealth;
@@ -19,7 +19,7 @@ public class Scr_HealthBar : MonoBehaviour
     float expandKoef = 3;
     void Start()
     {
-        _hero = _owner.GetComponent<Scr_BaseHero>();
+        //_hero = _owner.GetComponent<Scr_BaseHero>();
         rectBackground = _background.rectTransform;
         rectBackground.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _hero.Health.maxHealth * expandKoef);
 

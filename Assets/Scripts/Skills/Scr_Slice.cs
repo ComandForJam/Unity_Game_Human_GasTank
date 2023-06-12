@@ -10,9 +10,9 @@ public class Scr_Slice : MonoBehaviour
     [SerializeField]
     float beforeTime;
     float timer = 0;
-    public bool canSlice = true;
-    public bool isSlice = false;
-    public bool canState = true;
+    public bool canSlice = true; // Можно ли вызвать вообще эту функцию
+    public bool isSlice = false; // true в промежутке от вызова удара до окончания кулдауна
+    public bool canState = true; // true в промежутке от начала до animator event
 
     public float rangeAttack;
     public float damage;
@@ -50,11 +50,11 @@ public class Scr_Slice : MonoBehaviour
             else if (timer >= cooldown)
             {
                 canSlice = true;
-            }
-            if (timer >= beforeTime + 0.3f) 
-            {
                 isSlice = false;
-                canState = true; 
+            }
+            if (timer >= beforeTime + 0.3f)
+            {
+                canState = true;
             }
         }
     }

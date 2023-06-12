@@ -125,6 +125,9 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                 canState = true;
                 return;
             }
+
+
+
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4, LayerMask.GetMask("Enemy"));
             if (colliders.Length != 0)
             {
@@ -134,13 +137,11 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                     targetPos = Scr_Attack.NearTarget(_playerTr.position, colliders).transform.position;
                     return;
                 }
-                if (Random.value < 0.5f)
-                {
-                    targetPos = Scr_Attack.NearTarget(transform.position, colliders).transform.position;
-                } else
-                {
-                    targetPos = Scr_Attack.FarTarget(transform.position, colliders).transform.position;
-                }
+
+                targetPos = Scr_Attack.NearTarget(transform.position, colliders).transform.position;
+            
+            
+            
             } else
             {
                 targetPos = _playerTr.position;
@@ -157,13 +158,6 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Enemy"));
                 if (colliders.Length > 0)
                 {
-                    Vector2 prevMotion = motion;
-                    motion = (colliders[0].transform.position - transform.position).normalized;
-                    direction = motion;
-                    UpdateAnimator();
-                    motion = Vector2.zero;
-                    UpdateAnimator();
-                    motion = prevMotion;
 
                     _slice.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
                     stateCharacter = StateCharacter.isSlice;
@@ -183,7 +177,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
     protected override void UpdateSlice()
     {
-        if (!_slice.canState)
+        if (_slice.canState)
         {
             if (animator != null)
             {
@@ -195,7 +189,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     public void AnimatorEventSlice()
     {
-        _slice.isSlice = false;
+        _slice.canState = true;
     }
     protected override void UpdateLifeSave()
     {

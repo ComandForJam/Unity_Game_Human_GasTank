@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scr_BaseHero : Scr_BaseCharacter
 {
-    public Scr_UI ui;
+    //public Scr_UI ui;
     protected Scr_Dash _dash;
 
     protected override void Start()
@@ -72,7 +72,7 @@ public class Scr_BaseHero : Scr_BaseCharacter
         {
             bot.ownerTrigger.TargetNull(this);
         }
-        ui.GameOver();
+        _scr_ui.GameOver();
         base.Death(byGameObject);
     }
     public void LockController()

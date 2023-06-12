@@ -102,14 +102,7 @@ public class Scr_BotAi : Scr_BaseCharacter
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Heroes"));
                 if (colliders.Length > 0)
                 {
-                    Vector2 prevMotion = motion;
-                    motion = (colliders[0].transform.position - transform.position).normalized;
-                    direction = motion;
-                    UpdateAnimator();
-                    motion = Vector2.zero;
-                    UpdateAnimator();
-                    motion = prevMotion;
-
+                    
                     _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
                     stateCharacter = StateCharacter.isSlice;
                     canState = false;
@@ -128,16 +121,19 @@ public class Scr_BotAi : Scr_BaseCharacter
 
     protected override void UpdateSlice()
     {
-        if (!_slice.canState)
+        if (_slice.canState)
         {
-            animator.SetBool("isSlice", false);
+            if (animator != null)
+            {
+                animator.SetBool("isSlice", false);
+            }
             canState = true;
             stateCharacter = StateCharacter.isMove;
         }
     }
     public void AnimatorEventSlice()
     {
-        _slice.isSlice = false;
+        _slice.canState = true;
     }
     protected override void Death(GameObject byGameObject)
     {

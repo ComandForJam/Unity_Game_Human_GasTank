@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Scr_BaseCharacter : MonoBehaviour
 {// Скрипт, который наследуют все персонажи 
+    protected Scr_UI _scr_ui;
+
     public GameObject particlePointsFear;
     public int pointsFear = 10; // Очки страха
 
@@ -44,6 +46,8 @@ public class Scr_BaseCharacter : MonoBehaviour
         direction = motion;
 
         Health = new Scr_Health(baseHealth);
+
+        
     }
 
     protected virtual void Update()
@@ -147,6 +151,8 @@ public class Scr_BaseCharacter : MonoBehaviour
 
     public virtual void Damage(float damage, bool stan, GameObject byGameObject)
     {
+        if (_scr_ui == null) _scr_ui = GameObject.Find("UI(Clone)").GetComponent<Scr_UI>();
+        _scr_ui.Damage(transform.position, Mathf.Floor(damage).ToString());
         if (stateCharacter != StateCharacter.isDeath)
         {
             if (audioSource != null)

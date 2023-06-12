@@ -12,8 +12,14 @@ public class Scr_SpawnPlayer : MonoBehaviour
     public Canvas _UI;
 
     Scr_Camera _scrCamera;
+
+    public Scr_HealthBar _barPlayer;
+    public Scr_HealthBar _barChainsaw;
     void Start()
     {
+        Scr_BaseHero heroPlayer = _player.GetComponent<Scr_BaseHero>(); 
+        Scr_BaseHero heroChainsaw = _human_chainsaw.GetComponent<Scr_BaseHero>();
+
         _mainCamera = Instantiate(_mainCamera);
         _player = Instantiate(_player, transform);
         _human_chainsaw = Instantiate(_human_chainsaw, transform);
@@ -24,13 +30,17 @@ public class Scr_SpawnPlayer : MonoBehaviour
         _scrCamera._player = _player.transform;
 
         _UI = Instantiate(_UI);
+        _UI.GetComponent<Canvas>().worldCamera = Camera.main;
         Scr_UI _scr_UI = _UI.GetComponent<Scr_UI>();
         _scr_UI._player = _player;
         _scr_UI._chainsaw = _human_chainsaw;
         _scr_UI.spawnPlayer = this;
 
-        _player.GetComponent<Scr_BaseHero>().ui = _scr_UI;
-        _human_chainsaw.GetComponent<Scr_BaseHero>().ui = _scr_UI;
+        //_barChainsaw._hero = heroChainsaw;
+        //_barPlayer._hero = heroPlayer;
+
+        //heroChainsaw._scr_ui = _scr_UI;
+        //heroPlayer.ui = _scr_UI;
         _player.GetComponent<Scr_Human_GasTank>()._chainsaw = _human_chainsaw.GetComponent<Scr_Human_Chainsaw>();
     }
 

@@ -3,7 +3,13 @@ guid: 13df7cdaf3773b24e86efba8cb28d817
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _player: {fileID: 696160857606780901, guid: dbdf1371728e3f942a422404224878d9, type: 3}
+  - _human_chainsaw: {fileID: 8786056660097376255, guid: 3733534b5f46fb54397d18ebf2b6b910, type: 3}
+  - _mainCamera: {instanceID: 0}
+  - _UI: {instanceID: 0}
+  - _barPlayer: {instanceID: 0}
+  - _barChainsaw: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

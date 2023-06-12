@@ -269,7 +269,7 @@ MonoBehaviour:
   _bar: {fileID: 2906989815442491566}
   _background: {fileID: 6175563329690845929}
   _barNum: {fileID: 6919573225809357406}
-  _owner: {fileID: 0}
+  _hero: {fileID: 0}
 --- !u!1 &2024540140859708134
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,7 +902,7 @@ Canvas:
   m_GameObject: {fileID: 5926451739533978465}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 7496938573944390695, guid: e8e81f973cd93464c95d7607ae08bdf1, type: 3}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -972,6 +972,7 @@ MonoBehaviour:
   _panelGameOver: {fileID: 858444414578656895}
   _player: {fileID: 0}
   _chainsaw: {fileID: 0}
+  labelDamage: {fileID: 854882807824957405, guid: 6b1c06c297d57e14b9e364206b478bb0, type: 3}
 --- !u!1 &5982348632276084670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1027,7 @@ MonoBehaviour:
   _bar: {fileID: 312525930342231314}
   _background: {fileID: 4535503466699521639}
   _barNum: {fileID: 6609546645574322301}
-  _owner: {fileID: 0}
+  _hero: {fileID: 0}
 --- !u!1 &6387623820235420358
 GameObject:
   m_ObjectHideFlags: 0
