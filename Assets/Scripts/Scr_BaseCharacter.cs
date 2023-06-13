@@ -90,6 +90,7 @@ public class Scr_BaseCharacter : MonoBehaviour
         if (motion != Vector2.zero)
         {
             direction = motion.normalized;
+            motion *= Vector2.right;
             Flip();
         }
         UpdateAnimator();
@@ -98,29 +99,7 @@ public class Scr_BaseCharacter : MonoBehaviour
     {
         if (animator != null)
         {
-            if (motion == Vector2.zero)
-            {
-                animator.SetFloat("VerticalMove", 0);
-                animator.SetFloat("HorizontalMove", 0);
-            }
-            else
-            {
-                if (motion.x != 0 && Mathf.Abs(motion.x) > Mathf.Abs(motion.y))
-                {
-                    animator.SetFloat("HorizontalMove", 1);
-                    animator.SetFloat("VerticalMove", 0);
-                }
-                else if (motion.y > 0)
-                {
-                    animator.SetFloat("HorizontalMove", 0);
-                    animator.SetFloat("VerticalMove", 1);
-                }
-                else if (motion.y < 0)
-                {
-                    animator.SetFloat("HorizontalMove", 0);
-                    animator.SetFloat("VerticalMove", -1);
-                }
-            }
+            animator.SetFloat("Walk", motion.x);
         }
     }
     protected virtual void UpdateDamage()

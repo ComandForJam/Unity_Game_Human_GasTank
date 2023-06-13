@@ -112,7 +112,7 @@ public class Scr_BotAi : Scr_BaseCharacter
                     }
                     if (animator != null)
                     {
-                        animator.SetBool("isSlice", true);
+                        animator.SetBool("Attack_1", true);
                     }
                 }
             }
@@ -125,7 +125,7 @@ public class Scr_BotAi : Scr_BaseCharacter
         {
             if (animator != null)
             {
-                animator.SetBool("isSlice", false);
+                animator.SetBool("Attack_1", false);
             }
             canState = true;
             stateCharacter = StateCharacter.isMove;

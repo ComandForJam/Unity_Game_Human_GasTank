@@ -11,6 +11,7 @@ public class Scr_BaseHero : Scr_BaseCharacter
     {
         base.Start();
         _dash = GetComponent<Scr_Dash>();
+        _dash.animator = animator;
         Health = new Scr_HealthHero(baseHealth, pointsFear);
         speed = 10;
     }
@@ -49,6 +50,10 @@ public class Scr_BaseHero : Scr_BaseCharacter
         {
             canState = true;
             stateCharacter = StateCharacter.isMove;
+            if (animator != null)
+            {
+                animator.SetBool("Jump", false);
+            }
         }
     }
     protected virtual void UpdateLifeSave()

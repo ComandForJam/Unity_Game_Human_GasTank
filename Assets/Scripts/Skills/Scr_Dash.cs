@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_Dash : MonoBehaviour
 {
+    public Animator animator;
     public ParticleSystem particleDash;
     new Collider2D collider;
     Collider2D colliderCharacter;
@@ -41,6 +42,10 @@ public class Scr_Dash : MonoBehaviour
     {
         if (canDash)
         {
+            if (animator != null)
+            {
+                animator.SetBool("Jump", true);
+            }
             direction = _direction;
             isDash = true;
             canDash = false;

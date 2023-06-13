@@ -194,7 +194,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                     }
                     if (animator != null)
                     {
-                        animator.SetBool("isSlice", true);
+                        animator.SetBool("Attack_1", true);
                     }
                 }
             }
@@ -207,7 +207,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         {
             if (animator != null)
             {
-                animator.SetBool("isSlice", false);
+                animator.SetBool("Attack_2", false);
             }
             canState = true;
             stateCharacter = StateCharacter.isMove;
