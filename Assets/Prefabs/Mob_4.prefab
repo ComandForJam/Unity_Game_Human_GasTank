@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePointsFear: {fileID: 239516680889878842, guid: ee9a5616b9f6b6140b276fbdc076c417, type: 3}
-  pointsFear: 7
-  baseHealth: 50
+  pointsFear: 17
+  baseHealth: 70
   audios:
   - {fileID: 8300000, guid: 94757137d69153f4dbacb8f7de4feffb, type: 3}
   - {fileID: 8300000, guid: 41b533248e0838d4894719eeb13c3507, type: 3}

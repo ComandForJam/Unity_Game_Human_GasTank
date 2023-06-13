@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0f1224d0cb53c9d4bac6373bec8bea51
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - particlePointsFear: {fileID: 239516680889878842, guid: ee9a5616b9f6b6140b276fbdc076c417, type: 3}
+  - ownerTrigger: {instanceID: 0}
+  - colliderOwner: {instanceID: 0}
+  - transformTarget: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

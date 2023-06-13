@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -6860485561647741357}
   - component: {fileID: 3142666125441151153}
   - component: {fileID: 155588593907111780}
-  - component: {fileID: 121323738288146029}
-  - component: {fileID: 2926443147587660234}
+  - component: {fileID: 8306078288001168276}
+  - component: {fileID: 1261655976797924235}
   - component: {fileID: -3787438534143550618}
   m_Layer: 8
   m_Name: Mob_5
@@ -158,7 +158,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &121323738288146029
+--- !u!114 &8306078288001168276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,25 +167,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234624160539468169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99146b78dfe4bce40ba39235f4712360, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f1224d0cb53c9d4bac6373bec8bea51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particlePointsFear: {fileID: 239516680889878842, guid: ee9a5616b9f6b6140b276fbdc076c417, type: 3}
-  pointsFear: 7
-  baseHealth: 50
-  audios:
-  - {fileID: 8300000, guid: 94757137d69153f4dbacb8f7de4feffb, type: 3}
-  - {fileID: 8300000, guid: 41b533248e0838d4894719eeb13c3507, type: 3}
-  - {fileID: 8300000, guid: d5cde5da2e369604a9f7f19c7259f90f, type: 3}
-  volumeScalesForAudios:
-  - 1
-  - 0.5
-  - 20
+  pointsFear: 10
+  baseHealth: 30
+  audios: []
+  volumeScalesForAudios: []
   stateCharacter: 0
   ownerTrigger: {fileID: 0}
   colliderOwner: {fileID: 0}
   transformTarget: {fileID: 0}
---- !u!114 &2926443147587660234
+--- !u!114 &1261655976797924235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,18 +188,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234624160539468169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de3c500735709b040af8c1a41f4ce9e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 17b1d8e8f0139b640a0d2df7464d7c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _arrow: {fileID: 2557986756636581361, guid: 3a52882b9d1858542980cc99bffe8e77, type: 3}
   circleSlice: {fileID: 7538945771297785229, guid: 13f07e24b288c124eb618913c123f613, type: 3}
-  cooldown: 1.2
+  cooldown: 2
   beforeTime: 0.3
   canSlice: 1
   isSlice: 0
   canState: 1
-  rangeAttack: 0.7
-  damage: 5.01
-  radiusAttack: 1
+  rangeAttack: 15
+  damage: 8
 --- !u!82 &-3787438534143550618
 AudioSource:
   m_ObjectHideFlags: 0

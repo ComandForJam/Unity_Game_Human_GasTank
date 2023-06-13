@@ -6,7 +6,7 @@ public class Scr_BotAi : Scr_BaseCharacter
 {
     public Scr_TriggerMobs ownerTrigger;
     public BoxCollider2D colliderOwner;
-    protected Scr_Slice _slice;
+    
     [SerializeField]
     protected Transform transformTarget;
     protected Vector2 targetIdle;
@@ -14,7 +14,6 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void Start()
     {
         base.Start();
-        _slice = GetComponent<Scr_Slice>();
     }
 
     protected override void Update()
@@ -88,53 +87,12 @@ public class Scr_BotAi : Scr_BaseCharacter
         base.UpdateMove();
     }
 
-    protected void WaitAttack() // Ожидание атаки, ждет момета нанести удар
+    protected virtual void WaitAttack()
     {
-        if (canState)
-        {
-            if (!ownerTrigger.isAngry)
-            {
-                stateCharacter = StateCharacter.isIdle;
-                return;
-            }
-            if (_slice.canSlice)
-            {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Heroes"));
-                if (colliders.Length > 0)
-                {
-                    
-                    _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
-                    stateCharacter = StateCharacter.isSlice;
-                    canState = false;
-                    if (audioSource != null)
-                    {
-                        PlayAudio(AudioCode.attack);
-                    }
-                    if (animator != null)
-                    {
-                        animator.SetBool("Attack_1", true);
-                    }
-                }
-            }
-        }
+
     }
 
-    protected override void UpdateSlice()
-    {
-        if (_slice.canState)
-        {
-            if (animator != null)
-            {
-                animator.SetBool("Attack_1", false);
-            }
-            canState = true;
-            stateCharacter = StateCharacter.isMove;
-        }
-    }
-    public void AnimatorEventSlice()
-    {
-        _slice.canState = true;
-    }
+    
     protected override void Death(GameObject byGameObject)
     {
         if (stateCharacter != StateCharacter.isDeath)

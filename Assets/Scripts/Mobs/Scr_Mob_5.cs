@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scr_Mob_1 : Scr_BotAi
+public class Scr_Mob_5 : Scr_BotAi
 {
-    protected Scr_Slice _slice;
+    protected Scr_SliceArcher _slice;
     protected override void Start()
     {
         base.Start();
-        _slice = GetComponent<Scr_Slice>();
+        _slice = GetComponent<Scr_SliceArcher>();
     }
 
     protected override void Update()
@@ -25,7 +25,7 @@ public class Scr_Mob_1 : Scr_BotAi
         if (transformTarget != null)
         {
             Vector2 targetPos = TransformTarget.position;
-            if (Vector2.Distance(targetPos, transform.position) > (_slice.radiusAttack + _slice.rangeAttack)  * 0.9f)
+            if (Vector2.Distance(targetPos, transform.position) > _slice.rangeAttack  * 0.9f)
             {
                 FindPath();
                 motion += (targetPos - (Vector2)transform.position).normalized;
@@ -34,7 +34,7 @@ public class Scr_Mob_1 : Scr_BotAi
             }
             else
             {
-                motion = Vector2.zero;
+                motion = speed * Time.fixedDeltaTime * Vector2.up;
             }
             transform.Translate(motion);
         }
@@ -51,21 +51,17 @@ public class Scr_Mob_1 : Scr_BotAi
             }
             if (_slice.canSlice)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Heroes"));
-                if (colliders.Length > 0)
+                //direction = (transformTarget.position - transform.position).normalized;
+                _slice.Slice(transformTarget.position, LayerMask.GetMask("Heroes"), gameObject);
+                stateCharacter = StateCharacter.isSlice;
+                canState = false;
+                if (audioSource != null)
                 {
-
-                    _slice.Slice(direction, LayerMask.GetMask("Heroes"), false, gameObject);
-                    stateCharacter = StateCharacter.isSlice;
-                    canState = false;
-                    if (audioSource != null)
-                    {
-                        PlayAudio(AudioCode.attack);
-                    }
-                    if (animator != null)
-                    {
-                        animator.SetBool("Attack_1", true);
-                    }
+                    PlayAudio(AudioCode.attack);
+                }
+                if (animator != null)
+                {
+                    animator.SetBool("Attack_1", true);
                 }
             }
         }
@@ -86,7 +82,6 @@ public class Scr_Mob_1 : Scr_BotAi
     {
         _slice.canState = true;
     }
-
     private void OnDestroy()
     {
         if (ownerTrigger != null)
