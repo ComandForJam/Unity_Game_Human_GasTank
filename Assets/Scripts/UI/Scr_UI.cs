@@ -104,6 +104,7 @@ public class Scr_UI : MonoBehaviour
                     if (okTutorial < 4)
                     {
                         tutorial.GetChild(3).gameObject.SetActive(true);
+                        tutorial.GetChild(4).gameObject.SetActive(true);
                         okTutorial = 4;
                     }
                     break;
@@ -112,6 +113,7 @@ public class Scr_UI : MonoBehaviour
                     {
                         tutorial.GetChild(2).gameObject.SetActive(false);
                         tutorial.GetChild(3).gameObject.SetActive(false);
+                        tutorial.GetChild(4).gameObject.SetActive(false);
                         okTutorial = 6;
                     }
                     break;

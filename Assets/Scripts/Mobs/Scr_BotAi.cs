@@ -55,7 +55,7 @@ public class Scr_BotAi : Scr_BaseCharacter
     {
         
         canState = true;
-        if (ownerTrigger.isAngry)
+        if (ownerTrigger != null && ownerTrigger.isAngry)
         {
             stateCharacter = StateCharacter.isMove;
             return;
@@ -65,7 +65,7 @@ public class Scr_BotAi : Scr_BaseCharacter
             FindPath();
             motion += (targetIdle - (Vector2)transform.position).normalized;
 
-            motion = speed / 3 * Time.fixedDeltaTime * motion.normalized;
+            motion = speed / 2 * Time.fixedDeltaTime * motion.normalized;
             transform.Translate(motion);
         } else
         {

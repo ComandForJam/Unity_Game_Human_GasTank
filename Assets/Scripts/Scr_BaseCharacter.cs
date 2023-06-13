@@ -46,8 +46,6 @@ public class Scr_BaseCharacter : MonoBehaviour
         direction = motion;
 
         Health = new Scr_Health(baseHealth);
-
-        
     }
 
     protected virtual void Update()
@@ -90,7 +88,6 @@ public class Scr_BaseCharacter : MonoBehaviour
         if (motion != Vector2.zero)
         {
             direction = motion.normalized;
-            motion *= Vector2.right;
             Flip();
         }
         UpdateAnimator();
@@ -99,7 +96,15 @@ public class Scr_BaseCharacter : MonoBehaviour
     {
         if (animator != null)
         {
-            animator.SetFloat("Walk", motion.x);
+            animator.SetFloat("Walk", Mathf.Abs(motion.x));
+            if (motion.y < 0.1f)
+            {
+                animator.SetBool("Jump", false);
+            }
+            else if (motion.y >= 0.1f)
+            {
+                animator.SetBool("Jump", true);
+            }
         }
     }
     protected virtual void UpdateDamage()
@@ -170,7 +175,8 @@ public class Scr_BaseCharacter : MonoBehaviour
             }
             if (animator != null)
             {
-                animator.SetBool("isDeath", true);
+                animator.SetBool("Hit", true);
+                animator.SetBool("Dead", true);
             }
             if (audioSource != null)
             {

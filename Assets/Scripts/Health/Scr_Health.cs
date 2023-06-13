@@ -16,6 +16,7 @@ public class Scr_Health
     public void Damage(float damage)
     {
         health -= damage;
+        
     }
     public void Heal(float heal)
     {
