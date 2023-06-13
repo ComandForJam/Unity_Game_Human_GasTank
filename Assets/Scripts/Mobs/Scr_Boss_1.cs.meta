@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 3076234c2f1723b43bdada9551c56897
+guid: 3e0a6fee3aef98e459391add02871f74
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - circleSlice: {fileID: 7538945771297785229, guid: 13f07e24b288c124eb618913c123f613, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
