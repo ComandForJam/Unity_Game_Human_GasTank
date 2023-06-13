@@ -5029,8 +5029,16 @@ MonoBehaviour:
   particlePointsFear: {fileID: 0}
   pointsFear: 1
   baseHealth: 100
-  audios: []
-  volumeScalesForAudios: []
+  audios:
+  - {fileID: 8300000, guid: f0a9074775bcc364da1f0abece54436c, type: 3}
+  - {fileID: 8300000, guid: 709adaa7a6b360648a91bff68135f30b, type: 3}
+  - {fileID: 8300000, guid: 90c0c3099ad663e478c91246a0d02192, type: 3}
+  - {fileID: 8300000, guid: 94757137d69153f4dbacb8f7de4feffb, type: 3}
+  volumeScalesForAudios:
+  - 0.6
+  - 0.6
+  - 0.6
+  - 0.6
   stateCharacter: 0
   _playerTr: {fileID: 0}
 --- !u!114 &5854053015124875444
@@ -5045,6 +5053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2cc0cb6d185014ca00d5a31786b2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   particleDash: {fileID: 400119775753947777}
   goColliderCharacter: {fileID: 5907416986631141756, guid: badfa1046e915684aab140da663b8f88, type: 3}
   isDash: 0
