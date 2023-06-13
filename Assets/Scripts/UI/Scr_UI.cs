@@ -18,6 +18,8 @@ public class Scr_UI : MonoBehaviour
     List<Scr_LabelDamage> listLabels;
 
     public Transform tutorial;
+    public Scr_Replic replic;
+
     float timer = 0;
     int okTutorial = 0;
     void Start()
@@ -25,6 +27,7 @@ public class Scr_UI : MonoBehaviour
         _healthBarPlayer.GetComponent<Scr_HealthBar>()._hero = _player.GetComponent<Scr_BaseHero>();
         _healthBarChainsaw.GetComponent<Scr_HealthBar>()._hero = _chainsaw.GetComponent<Scr_BaseHero>();
         listLabels = new List<Scr_LabelDamage>();
+        replic.gameObject.SetActive(false);
     }
 
 
@@ -128,5 +131,10 @@ public class Scr_UI : MonoBehaviour
 
             }
         }
+    }
+
+    public void SayReplic(Transform targetTr, string text)
+    {
+        replic.SayReplic(targetTr, text);
     }
 }

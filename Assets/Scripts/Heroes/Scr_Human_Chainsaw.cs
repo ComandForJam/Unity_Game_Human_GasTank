@@ -11,6 +11,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected float distanceToTarget;
 
     bool isTargetImportant = false;
+    bool canReplic = true;
     protected override void Start()
     {
         base.Start();
@@ -135,7 +136,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
 
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 4, LayerMask.GetMask("Enemy"));
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5, LayerMask.GetMask("Enemy"));
             if (colliders.Length != 0)
             {
                 stateCharacter = StateCharacter.isMove;
@@ -228,10 +229,12 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected override void UpdateLifeSave()
     {
-        base.UpdateLifeSave(); 
+        base.UpdateLifeSave();
+        if (canReplic) { _scr_ui.SayReplic(transform, "Помоги мне!"); canReplic = false; }
         if (canState && !Health.HealthLessPercent(0.7f))
         {
             stateCharacter = StateCharacter.isIdle;
+            canReplic = true;
         }
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
         if (_dash.canDash && distanceToTarget > (_dash.delayDash * _dash.speedDash) * 0.8f)

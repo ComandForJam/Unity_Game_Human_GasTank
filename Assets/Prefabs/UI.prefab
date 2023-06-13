@@ -689,13 +689,14 @@ GameObject:
   - component: {fileID: 1200962498746343129}
   - component: {fileID: 2755518294844118386}
   - component: {fileID: 8485138937664011551}
+  - component: {fileID: 5355452348925901625}
   m_Layer: 5
   m_Name: Replic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1200962498746343129
 RectTransform:
   m_ObjectHideFlags: 0
@@ -771,15 +772,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -813,6 +814,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5355452348925901625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433402379419610498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53bf7f6ce82c1c74e97190ff971dba66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1821408193638963849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,6 +1709,7 @@ MonoBehaviour:
   _chainsaw: {fileID: 0}
   labelDamage: {fileID: 854882807824957405, guid: 6b1c06c297d57e14b9e364206b478bb0, type: 3}
   tutorial: {fileID: 5559799830575002964}
+  replic: {fileID: 5355452348925901625}
 --- !u!1 &5982348632276084670
 GameObject:
   m_ObjectHideFlags: 0
