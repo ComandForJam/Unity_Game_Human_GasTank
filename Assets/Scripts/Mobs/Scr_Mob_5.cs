@@ -52,7 +52,7 @@ public class Scr_Mob_5 : Scr_BotAi
             if (_slice.canSlice)
             {
                 //direction = (transformTarget.position - transform.position).normalized;
-                _slice.Slice(transformTarget.position, LayerMask.GetMask("Heroes"), gameObject);
+                _slice.Slice(direction, LayerMask.GetMask("Heroes"), gameObject);
                 stateCharacter = StateCharacter.isSlice;
                 canState = false;
                 if (audioSource != null)

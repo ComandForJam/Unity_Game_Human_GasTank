@@ -22,7 +22,7 @@ public class Scr_Bullet : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            transform.Translate(Mathf.Abs(motion.x), motion.y, 0);
+            transform.position += (Vector3)motion;
             //Debug.Log(transform.right);
         }
     }
@@ -30,19 +30,19 @@ public class Scr_Bullet : MonoBehaviour
 
     public void Slice(Vector2 targetPos, GameObject _owner, LayerMask _layerMask, float _damage)
     {
-        Vector2 dir = (targetPos - (Vector2)transform.position).normalized;
+        Vector2 dir = targetPos.normalized;
         float rotateZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotateZ);
         owner = _owner;
         layerMask = _layerMask;
         damage = _damage;
-        motion = dir;
+
+        motion = speed * Time.fixedDeltaTime * dir;
         
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.layer + " " + layerMask);
         if (gameObject.activeSelf)
         {
             if ((int)Mathf.Pow(2, collision.gameObject.layer) != layerMask)

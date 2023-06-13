@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Scr_TriggerMobs : MonoBehaviour
 {
+    public Scr_ManagerSound _manager;
     public List<Scr_BotAi> listBotsInArea;
     List<Scr_BotAi> listForDelete;
     List<Scr_BaseHero> heroes;
@@ -28,6 +29,7 @@ public class Scr_TriggerMobs : MonoBehaviour
         listForDelete = new List<Scr_BotAi>();
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.loop = true;
         heroes = new();
     }
 
@@ -121,10 +123,11 @@ public class Scr_TriggerMobs : MonoBehaviour
     {
         if (isChangeInFight)
         {
+            UpdateAudio();
             if (heroes.Count > 1)
             {
                 isAngry = true;
-                UpdateAudio();
+                
 
                 float fear1 = heroes[0].pointsFear;
                 float fear2 = heroes[1].pointsFear;
@@ -144,7 +147,7 @@ public class Scr_TriggerMobs : MonoBehaviour
             } else if (heroes.Count == 1)
             {
                 isAngry = true;
-                UpdateAudio();
+                
                 foreach (var bot in listBotsInArea)
                 {
                     bot.TransformTarget = heroes[0].transform;
@@ -173,9 +176,16 @@ public class Scr_TriggerMobs : MonoBehaviour
     }
     void UpdateAudio()
     {
-        if (!audioSource.isPlaying && listBotsInArea.Count > 0)
+        if (isAngry)
+        {
             audioSource.Play();
-        else if (audioSource.isPlaying && listBotsInArea.Count == 0)
+            _manager.Stop();
+        }
+        else
+        {
             audioSource.Stop();
+            _manager.Play();
+        }
+            
     }
 }
