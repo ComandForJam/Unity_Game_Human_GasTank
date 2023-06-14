@@ -422,6 +422,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 121323738288146029, guid: badbdb482f4e42144a98fc7da235c1c5, type: 3}
+      propertyPath: baseHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 121323738288146029, guid: badbdb482f4e42144a98fc7da235c1c5, type: 3}
+      propertyPath: pointsFear
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1234624160539468169, guid: badbdb482f4e42144a98fc7da235c1c5, type: 3}
       propertyPath: m_Name
       value: Mob_4 (1)
@@ -58674,6 +58682,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1261655976797924235, guid: 335a703408a9087489a450a9ac651c84, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8306078288001168276, guid: 335a703408a9087489a450a9ac651c84, type: 3}
+      propertyPath: baseHealth
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335a703408a9087489a450a9ac651c84, type: 3}
 --- !u!1 &1741153492
@@ -60125,6 +60141,14 @@ PrefabInstance:
     - target: {fileID: 2905349932616524232, guid: 7bfc3bc6db86542489b2713da7e17429, type: 3}
       propertyPath: m_Name
       value: Mob_3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583207119076145554, guid: 7bfc3bc6db86542489b2713da7e17429, type: 3}
+      propertyPath: baseHealth
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583207119076145554, guid: 7bfc3bc6db86542489b2713da7e17429, type: 3}
+      propertyPath: pointsFear
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfc3bc6db86542489b2713da7e17429, type: 3}

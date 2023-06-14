@@ -32,9 +32,15 @@ public class Scr_Mob_5 : Scr_BotAi
                 
                 motion = speed * Time.fixedDeltaTime * motion.normalized;
             }
+            else if (Vector2.Distance(targetPos, transform.position) < _slice.rangeAttack * 0.7f)
+            {
+                motion = new Vector2(((Vector2)transform.position - targetPos).normalized.x, 1);
+                motion = speed * Time.fixedDeltaTime * motion;
+            }
             else
             {
                 motion = speed * Time.fixedDeltaTime * Vector2.up;
+
             }
             transform.Translate(motion);
         }
