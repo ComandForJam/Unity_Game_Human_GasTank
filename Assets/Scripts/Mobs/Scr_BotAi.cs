@@ -24,6 +24,7 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void FixedUpdate()
     {
         UpdateDamage();
+        
         //UpdateState();
         switch (stateCharacter)
         {
@@ -79,13 +80,19 @@ public class Scr_BotAi : Scr_BaseCharacter
     }
     protected override void UpdateMove()
     {
-        if (canState && !ownerTrigger.isAngry)
+        if (ownerTrigger != null)
         {
-            stateCharacter = StateCharacter.isIdle;
-            return;
+            if (canState && !ownerTrigger.isAngry)
+            {
+                stateCharacter = StateCharacter.isIdle;
+                return;
+            }
         }
-        direction = (TransformTarget.position - transform.position).normalized;
-        motion = direction;
+        if (transformTarget != null)
+        {
+            direction = (TransformTarget.position - transform.position).normalized;
+            motion = direction;
+        }
         base.UpdateMove();
     }
 

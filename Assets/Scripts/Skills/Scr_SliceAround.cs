@@ -58,7 +58,7 @@ public class Scr_SliceAround : MonoBehaviour
                         switchIter++;
                     }
                     break;
-                case < 0.6f:
+                case < 0.6f  :
                     if (switchIter < 3)
                     {
                         float x = rangeAttack * Mathf.Cos(switchIter);
@@ -95,7 +95,7 @@ public class Scr_SliceAround : MonoBehaviour
                     }
                     break;
                 case < 2f:
-                    if (switchIter < 6)
+                    if (switchIter < 7)
                     {
                         canState = true;
                         switchIter++;
@@ -105,6 +105,7 @@ public class Scr_SliceAround : MonoBehaviour
             }
             if (timer >= cooldown)
             {
+                canState = true;
                 canSlice = true;
             }
         }

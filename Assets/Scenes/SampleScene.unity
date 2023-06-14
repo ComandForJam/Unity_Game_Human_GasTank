@@ -238,7 +238,7 @@ Transform:
   m_Children:
   - {fileID: 1290723732}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &471946320 stripped
 Transform:
@@ -400,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496938573944390872, guid: e8e81f973cd93464c95d7607ae08bdf1, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7496938573944390872, guid: e8e81f973cd93464c95d7607ae08bdf1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32724,19 +32724,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424988551259844934, guid: 774a2b218b76af2438280f0c71502abb, type: 3}
       propertyPath: m_Size.x
-      value: 20.118052
+      value: 16.540379
       objectReference: {fileID: 0}
     - target: {fileID: 8424988551259844934, guid: 774a2b218b76af2438280f0c71502abb, type: 3}
       propertyPath: m_Size.y
-      value: 8.612405
+      value: 8.151953
       objectReference: {fileID: 0}
     - target: {fileID: 8424988551259844934, guid: 774a2b218b76af2438280f0c71502abb, type: 3}
       propertyPath: m_Offset.x
-      value: -7.957217
+      value: -6.16838
       objectReference: {fileID: 0}
     - target: {fileID: 8424988551259844934, guid: 774a2b218b76af2438280f0c71502abb, type: 3}
       propertyPath: m_Offset.y
-      value: 5.9313235
+      value: 5.7010984
       objectReference: {fileID: 0}
     - target: {fileID: 8424988551259844935, guid: 774a2b218b76af2438280f0c71502abb, type: 3}
       propertyPath: m_Name

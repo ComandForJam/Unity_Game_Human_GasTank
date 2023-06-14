@@ -100,8 +100,19 @@ public class Scr_Boss_1 : Scr_BotAi
             {
                 animator.SetBool("Attack_1", false);
             }
-            canState = true;
             stateCharacter = StateCharacter.isMove;
+        }
+        if (_sliceAround.canState)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("Attack_2", false);
+            }
+            stateCharacter = StateCharacter.isMove;
+        }
+        if (_sliceAround.canState && _slice.canState)
+        {
+            canState = true;
         }
     }
     public void AnimatorEventSlice()

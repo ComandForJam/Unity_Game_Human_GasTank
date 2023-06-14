@@ -17,6 +17,8 @@ public class Scr_SpawnPlayer : MonoBehaviour
     public Scr_HealthBar _barChainsaw;
 
     public GameObject core;
+
+    public Texture2D cursorTexture;
     void Start()
     {
         Scr_BaseHero heroPlayer = _player.GetComponent<Scr_BaseHero>(); 
@@ -45,6 +47,8 @@ public class Scr_SpawnPlayer : MonoBehaviour
         //heroChainsaw._scr_ui = _scr_UI;
         //heroPlayer.ui = _scr_UI;
         _player.GetComponent<Scr_Human_GasTank>()._chainsaw = _human_chainsaw.GetComponent<Scr_Human_Chainsaw>();
+
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     void Update()

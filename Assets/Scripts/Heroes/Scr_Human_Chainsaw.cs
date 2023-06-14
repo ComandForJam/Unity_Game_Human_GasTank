@@ -211,23 +211,25 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected override void UpdateSlice()
     {
 
-        if (!_slice.canSlice && _slice.canState)
+        if (_slice.canState)
         {
             if (animator != null)
             {
                 animator.SetBool("Attack_1", false);
             }
-            canState = true;
             stateCharacter = StateCharacter.isMove;
         }
-        if (!_sliceAround.canSlice && _sliceAround.canState)
+        if (_sliceAround.canState)
         {
             if (animator != null)
             {
                 animator.SetBool("Attack_2", false);
             }
-            canState = true;
             stateCharacter = StateCharacter.isMove;
+        }
+        if (_sliceAround.canState && _slice.canState)
+        {
+            canState = true;
         }
     }
     public void AnimatorEventSlice()
