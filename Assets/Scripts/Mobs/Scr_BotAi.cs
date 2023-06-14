@@ -14,6 +14,7 @@ public class Scr_BotAi : Scr_BaseCharacter
     protected override void Start()
     {
         base.Start();
+        targetIdle = transform.position;
     }
 
     protected override void Update()
@@ -59,19 +60,20 @@ public class Scr_BotAi : Scr_BaseCharacter
             stateCharacter = StateCharacter.isMove;
             return;
         }
-        if (targetIdle != null && Vector2.Distance(transform.position, targetIdle) > 1)
+        if (Mathf.Abs(targetIdle.x - transform.position.x) > 1)
         {
             FindPath();
             motion += (targetIdle - (Vector2)transform.position).normalized;
 
-            motion = speed / 2 * Time.fixedDeltaTime * motion.normalized;
+            motion = speed * Time.fixedDeltaTime * motion.normalized;
             transform.Translate(motion);
-        } else
+        } else if (colliderOwner != null)
         {
-            targetIdle = new Vector2((Random.value * colliderOwner.size.x - 5), (Random.value * colliderOwner.size.y - 5));
+            targetIdle = new Vector2((Random.value * colliderOwner.size.x - 5), 0);
             targetIdle -= targetIdle / 2;
             targetIdle += (Vector2)ownerTrigger.transform.position;
         }
+        
         base.UpdateIdle();
 
     }

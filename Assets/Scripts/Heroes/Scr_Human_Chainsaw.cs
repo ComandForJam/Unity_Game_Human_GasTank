@@ -11,7 +11,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     protected float distanceToTarget;
 
     bool isTargetImportant = false;
-    bool canReplic = true;
+    //bool canReplic = true;
     protected override void Start()
     {
         base.Start();
@@ -27,6 +27,8 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected override void FixedUpdate()
     {
+        
+        UpdateSlice();
         //Debug.Log(stateCharacter + " " + canState + " " + isTargetImportant ); ;
         UpdateDamage();
         ((Scr_HealthHero)Health).UpdateMaxHealth(pointsFear);
@@ -45,7 +47,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
             case StateCharacter.isDamage:
                 break;
             case StateCharacter.isSlice:
-                UpdateSlice();
+                
                 break;
             case StateCharacter.isDash:
                 UpdateDash();
@@ -61,12 +63,16 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     }
     protected override void UpdateIdle()
     {
+        
+        if (_scr_ui == null) _scr_ui = GameObject.Find("UI(Clone)").GetComponent<Scr_UI>();
+        _scr_ui.SayReplic(transform, "Идем уже!");
         canState = true;
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
-        if (distanceToTarget > 3)
+        if (distanceToTarget > 4)
         {
-            motion = speed / 2 * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
+            motion = speed * Time.fixedDeltaTime * (targetPos - (Vector2)transform.position).normalized;
             transform.Translate(motion);
+            
         } else
         {
             motion = Vector2.zero;
@@ -121,7 +127,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
     {
         if (canState && !isTargetImportant)
         {
-            if (Vector2.Distance(transform.position, _playerTr.position) > Camera.main.orthographicSize)
+            if (Vector2.Distance(transform.position, _playerTr.position) > 10)
             {
                 targetPos = _playerTr.position;
                 return;
@@ -136,7 +142,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
 
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5, LayerMask.GetMask("Enemy"));
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 10, LayerMask.GetMask("Enemy"));
             if (colliders.Length != 0)
             {
                 stateCharacter = StateCharacter.isMove;
@@ -163,7 +169,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
         {
             if (_sliceAround.canSlice)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack, LayerMask.GetMask("Enemy"));
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _slice.radiusAttack + _slice.rangeAttack + 1, LayerMask.GetMask("Enemy"));
                 if (colliders.Length > 2)
                 {
                     _sliceAround.Slice(direction, LayerMask.GetMask("Enemy"), true, gameObject);
@@ -175,7 +181,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                     }
                     if (animator != null)
                     {
-                        animator.SetBool("isSliceAround", true);
+                        animator.SetBool("Attack_2", true);
                     }
                     return;
                 }
@@ -204,7 +210,17 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
 
     protected override void UpdateSlice()
     {
-        if (_slice.canState)
+
+        if (!_slice.canSlice && _slice.canState)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("Attack_1", false);
+            }
+            canState = true;
+            stateCharacter = StateCharacter.isMove;
+        }
+        if (!_sliceAround.canSlice && _sliceAround.canState)
         {
             if (animator != null)
             {
@@ -213,28 +229,21 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
             canState = true;
             stateCharacter = StateCharacter.isMove;
         }
-        if (_sliceAround.canState)
-        {
-            if (animator != null)
-            {
-                animator.SetBool("isSliceAround", false);
-            }
-            canState = true;
-            stateCharacter = StateCharacter.isMove;
-        }
     }
     public void AnimatorEventSlice()
     {
         _slice.canState = true;
+        _sliceAround.canState = true;
     }
     protected override void UpdateLifeSave()
     {
         base.UpdateLifeSave();
-        if (canReplic) { _scr_ui.SayReplic(transform, "Помоги мне!"); canReplic = false; }
+        if (_scr_ui == null) _scr_ui = GameObject.Find("UI(Clone)").GetComponent<Scr_UI>();
+        _scr_ui.SayReplic(transform, "Спасай меня!");
         if (canState && !Health.HealthLessPercent(0.7f))
         {
             stateCharacter = StateCharacter.isIdle;
-            canReplic = true;
+            //canReplic = true;
         }
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
         if (_dash.canDash && distanceToTarget > (_dash.delayDash * _dash.speedDash) * 0.8f)

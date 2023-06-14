@@ -95,7 +95,7 @@ public class Scr_SliceAround : MonoBehaviour
                     }
                     break;
                 case < 2f:
-                    if (switchIter < 5)
+                    if (switchIter < 6)
                     {
                         canState = true;
                         switchIter++;

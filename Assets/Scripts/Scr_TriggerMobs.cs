@@ -9,6 +9,7 @@ public class Scr_TriggerMobs : MonoBehaviour
     List<Scr_BotAi> listForDelete;
     List<Scr_BaseHero> heroes;
     AudioSource audioSource;
+    BoxCollider2D boxcollider;
 
     public bool isAngry = false;
     bool isChangeInFight = false;
@@ -16,8 +17,9 @@ public class Scr_TriggerMobs : MonoBehaviour
     void Start()
     {
         listBotsInArea = new List<Scr_BotAi>();
+        boxcollider = GetComponent<BoxCollider2D>();
 
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, GetComponent<BoxCollider2D>().size, transform.rotation.eulerAngles.z, LayerMask.GetMask("Enemy"));
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position,boxcollider.size, transform.rotation.eulerAngles.z, LayerMask.GetMask("Enemy"));
         for (int i = 0; i < colliders.Length; i++)
         {
             GameObject mob = colliders[i].gameObject;
@@ -100,7 +102,7 @@ public class Scr_TriggerMobs : MonoBehaviour
         {
             listBotsInArea.Add(child);
             child.ownerTrigger = this;
-            child.colliderOwner = GetComponent<BoxCollider2D>();
+            child.colliderOwner = boxcollider;
         }
     } // ƒобавл€ет новых мобов в основной список
     public void RemoveMob(Scr_BotAi child)

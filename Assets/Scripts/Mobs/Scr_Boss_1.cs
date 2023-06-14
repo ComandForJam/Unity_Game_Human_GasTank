@@ -6,6 +6,8 @@ public class Scr_Boss_1 : Scr_BotAi
 {
     protected Scr_Slice _slice;
     protected Scr_SliceAround _sliceAround;
+
+    bool canReplic = true;
     protected override void Start()
     {
         base.Start();
@@ -19,6 +21,7 @@ public class Scr_Boss_1 : Scr_BotAi
     }
     protected override void FixedUpdate()
     {
+        UpdateSlice();
         base.FixedUpdate();
     }
 
@@ -26,6 +29,11 @@ public class Scr_Boss_1 : Scr_BotAi
     {
         if (transformTarget != null)
         {
+            if (canReplic) {
+                if (_scr_ui == null) _scr_ui = GameObject.Find("UI(Clone)").GetComponent<Scr_UI>();
+                _scr_ui.SayReplic(transform, "Я защищу этот колодец!");
+                canReplic = false;
+            }
             Vector2 targetPos = TransformTarget.position;
             if (Vector2.Distance(targetPos, transform.position) > (_slice.radiusAttack + _slice.rangeAttack) * 0.9f)
             {
@@ -106,6 +114,13 @@ public class Scr_Boss_1 : Scr_BotAi
     public void AnimatorEventSlice()
     {
         _slice.canState = true;
+        _sliceAround.canState = true;
+    }
+    protected override void Death(GameObject byGameObject)
+    {
+        base.Death(byGameObject);
+        if (_scr_ui == null) _scr_ui = GameObject.Find("UI(Clone)").GetComponent<Scr_UI>();
+        _scr_ui.SayReplic(transform, "Нет...");
     }
 
     private void OnDestroy()

@@ -8,22 +8,25 @@ public class Scr_SpawnPlayer : MonoBehaviour
     public GameObject _player;
     public GameObject _human_chainsaw;
    
-    public Camera _mainCamera;
+    Camera _mainCamera;
     public Canvas _UI;
 
     Scr_Camera _scrCamera;
 
     public Scr_HealthBar _barPlayer;
     public Scr_HealthBar _barChainsaw;
+
+    public GameObject core;
     void Start()
     {
         Scr_BaseHero heroPlayer = _player.GetComponent<Scr_BaseHero>(); 
         Scr_BaseHero heroChainsaw = _human_chainsaw.GetComponent<Scr_BaseHero>();
 
-        _mainCamera = Instantiate(_mainCamera);
+        _mainCamera = Camera.main;
         _player = Instantiate(_player, transform);
         _human_chainsaw = Instantiate(_human_chainsaw, transform);
         _human_chainsaw.GetComponent<Scr_Human_Chainsaw>()._playerTr = _player.transform;
+
 
         _scrCamera = _mainCamera.GetComponent<Scr_Camera>();
         _scrCamera._chainsaw = _human_chainsaw.transform;
@@ -46,13 +49,26 @@ public class Scr_SpawnPlayer : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameAgain();
+        }
     }
     
     public void GameAgain()
     {
-        _player.transform.position = transform.position;
-        _human_chainsaw.transform.position = transform.position;
+        //DontDestroyOnLoad(gameObject);
+
+        //_player.transform.position = transform.position;
+       // _human_chainsaw.transform.position = transform.position;
+        //_human_chainsaw.GetComponent<Scr_BaseHero>().Health.Heal(1000);
+        //_player.GetComponent<Scr_BaseHero>().Health.Heal(1000);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    
 }

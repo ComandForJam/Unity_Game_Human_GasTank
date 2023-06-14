@@ -132,7 +132,7 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -148,7 +148,7 @@ Animator:
   m_GameObject: {fileID: 1234624160539468169}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7dd15293d31db8c40900a2d5e069ff11, type: 2}
+  m_Controller: {fileID: 9100000, guid: c53b0f1e859e12d4aa50f86958b4c4f7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0a6fee3aef98e459391add02871f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scr_ui: {fileID: 0}
   particlePointsFear: {fileID: 239516680889878842, guid: ee9a5616b9f6b6140b276fbdc076c417, type: 3}
   pointsFear: 100
   baseHealth: 500
@@ -198,7 +199,7 @@ MonoBehaviour:
   canSlice: 1
   isSlice: 0
   canState: 1
-  rangeAttack: 1
+  rangeAttack: 4
   damage: 10
   radiusAttack: 2
 --- !u!114 &6587227707369903424
@@ -219,7 +220,7 @@ MonoBehaviour:
   canSlice: 1
   isSlice: 0
   canState: 1
-  rangeAttack: 1.5
+  rangeAttack: 5
   damage: 5
   radiusAttack: 1
 --- !u!82 &-3787438534143550618

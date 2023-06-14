@@ -10,6 +10,7 @@ public class Scr_UI : MonoBehaviour
     public GameObject _healthBarChainsaw;
 
     public GameObject _panelGameOver;
+    public GameObject _panelGameWin;
 
     public GameObject _player;
     public GameObject _chainsaw;
@@ -45,12 +46,22 @@ public class Scr_UI : MonoBehaviour
         _player.GetComponent<Scr_BaseHero>().LockController();
         _chainsaw.GetComponent<Scr_BaseHero>().LockController();
     }
+    public void GameWin()
+    {
+
+        _healthBarChainsaw.SetActive(false);
+        _healthBarPlayer.SetActive(false);
+        _panelGameWin.SetActive(true);
+
+        _player.GetComponent<Scr_BaseHero>().LockController();
+        _chainsaw.GetComponent<Scr_BaseHero>().LockController();
+    }
 
     public void PlayAgain()
     {
-        _healthBarChainsaw.SetActive(true);
-        _healthBarPlayer.SetActive(true);
-        _panelGameOver.SetActive(false);
+        //_healthBarChainsaw.SetActive(true);
+        //_healthBarPlayer.SetActive(true);
+        //_panelGameOver.SetActive(false);
         spawnPlayer.GameAgain();
     }
 
@@ -135,6 +146,7 @@ public class Scr_UI : MonoBehaviour
 
     public void SayReplic(Transform targetTr, string text)
     {
+        if (!replic.gameObject.activeSelf)
         replic.SayReplic(targetTr, text);
     }
 }

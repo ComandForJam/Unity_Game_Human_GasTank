@@ -52,7 +52,7 @@ public class Scr_Slice : MonoBehaviour
                 canSlice = true;
                 isSlice = false;
             }
-            if (timer >= beforeTime + 0.3f)
+            if (timer >= beforeTime + 0.5f)
             {
                 canState = true;
             }

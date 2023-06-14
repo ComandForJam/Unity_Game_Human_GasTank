@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scr_BaseCharacter : MonoBehaviour
 {// Скрипт, который наследуют все персонажи 
-    protected Scr_UI _scr_ui;
+    public Scr_UI _scr_ui;
 
     public GameObject particlePointsFear;
     public int pointsFear = 10; // Очки страха

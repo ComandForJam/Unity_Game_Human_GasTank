@@ -28,10 +28,12 @@ public class Scr_ManagerSound : MonoBehaviour
     }
     public void Play()
     {
-        audioSource.Play();
+        if (!audioSource.isPlaying)
+            audioSource.Play();
     }
     public void Stop()
     {
-        audioSource.Stop();
+        if (audioSource.isPlaying)
+            audioSource.Stop();
     }
 }

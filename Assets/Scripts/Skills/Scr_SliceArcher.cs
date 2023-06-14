@@ -42,11 +42,11 @@ public class Scr_SliceArcher : MonoBehaviour
             {
                 canSlice = true;
                 isSlice = false;
-            }
+            }/*
             else if (!canState && timer >= beforeTime + 0.3f)
             {
                 canState = true;
-            }
+            }*/
             else if (!isSlice && timer >= beforeTime)
             {
                 arrow.SetActive(true);

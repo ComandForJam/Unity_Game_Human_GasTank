@@ -780,6 +780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 228990639471510797, guid: 81d2193c30036004e94b3660853d4acc, type: 3}
+      propertyPath: m_TagString
+      value: Respawn
+      objectReference: {fileID: 0}
     - target: {fileID: 3388738431013068867, guid: 81d2193c30036004e94b3660853d4acc, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -824,6 +828,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9093717626558970982, guid: 81d2193c30036004e94b3660853d4acc, type: 3}
+      propertyPath: core
+      value: 
+      objectReference: {fileID: 1671122344965088667, guid: 82e8f45a2c6084a45acd50f6f5d7c2f8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81d2193c30036004e94b3660853d4acc, type: 3}
 --- !u!1 &897316981

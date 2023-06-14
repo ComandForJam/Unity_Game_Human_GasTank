@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Scr_Replic : MonoBehaviour
 {
-    float timeLife = 3;
+    float timeLife = 1;
     float timer;
 
     Transform targetTr;
-    TMPro.TextMeshProUGUI tmp;
+    public TMPro.TextMeshProUGUI tmp;
 
     void Start()
     {
-        tmp = GetComponent<TMPro.TextMeshProUGUI>();
+        
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class Scr_Replic : MonoBehaviour
         if (timer > 0)
         {
             timer -= Time.deltaTime;
-            transform.position = targetTr.position + Vector3.up * 1f;
+            transform.position = targetTr.position + Vector3.up * targetTr.localScale.y / 2;
         }
         else if (gameObject.activeSelf) gameObject.SetActive(false);
     }
