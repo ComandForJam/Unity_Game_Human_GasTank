@@ -4953,10 +4953,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 90c0c3099ad663e478c91246a0d02192, type: 3}
   - {fileID: 8300000, guid: 94757137d69153f4dbacb8f7de4feffb, type: 3}
   volumeScalesForAudios:
-  - 0.6
-  - 0.6
-  - 0.6
-  - 0.6
+  - 0.1
+  - 0.1
+  - 0.2
+  - 0.1
   stateCharacter: 0
   _playerTr: {fileID: 0}
 --- !u!114 &5854053015124875444

@@ -161,17 +161,17 @@ MonoBehaviour:
   pointsFear: 1
   baseHealth: 100
   audios:
-  - {fileID: 8300000, guid: 94757137d69153f4dbacb8f7de4feffb, type: 3}
+  - {fileID: 0}
   - {fileID: 8300000, guid: 0f6e1bacbf5d6064dba2c706e57e2024, type: 3}
   - {fileID: 8300000, guid: d5cde5da2e369604a9f7f19c7259f90f, type: 3}
   - {fileID: 0}
   - {fileID: 8300000, guid: 1adc62abf2c687440abad6d5291849ad, type: 3}
   volumeScalesForAudios:
+  - 0
+  - 0.1
   - 0.3
-  - 0.3
-  - 0.3
-  - 0.3
-  - 0.3
+  - 0
+  - 0.2
   stateCharacter: 0
   _chainsaw: {fileID: 0}
   dirIndicator: {fileID: 8443301800733169217}

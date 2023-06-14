@@ -97,14 +97,6 @@ public class Scr_BaseCharacter : MonoBehaviour
         if (animator != null)
         {
             animator.SetFloat("Walk", Mathf.Abs(motion.x));
-            if (motion.y < 0.1f)
-            {
-                animator.SetBool("Jump", false);
-            }
-            else if (motion.y >= 0.1f)
-            {
-                animator.SetBool("Jump", true);
-            }
         }
     }
     protected virtual void UpdateDamage()

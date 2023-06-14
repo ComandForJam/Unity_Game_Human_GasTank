@@ -132,7 +132,7 @@ public class Scr_Human_Chainsaw : Scr_BaseHero
                 targetPos = _playerTr.position;
                 return;
             }
-            if (Health.HealthLessPercent(0.2f))
+            if (Health.health < 12)
             {
                 stateCharacter = StateCharacter.isLifeSave;
                 targetPos = _playerTr.position;

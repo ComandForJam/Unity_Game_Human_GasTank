@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 0
   m_Name: TriggerMobs_Box
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -72,7 +72,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf253aac748550c479607c9c4b7817bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _manager: {fileID: 0}
   listBotsInArea: []
+  isAngry: 0
 --- !u!82 &2319787588795227238
 AudioSource:
   m_ObjectHideFlags: 0

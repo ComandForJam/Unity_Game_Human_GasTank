@@ -170,16 +170,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99146b78dfe4bce40ba39235f4712360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scr_ui: {fileID: 0}
   particlePointsFear: {fileID: 239516680889878842, guid: ee9a5616b9f6b6140b276fbdc076c417, type: 3}
-  pointsFear: 10
-  baseHealth: 30
+  pointsFear: 11
+  baseHealth: 35
   audios:
   - {fileID: 8300000, guid: 130b08d1ae2b16e4880983683d90fe41, type: 3}
   - {fileID: 8300000, guid: 49d07e1db10117848b2fe6ed89df93b2, type: 3}
   - {fileID: 8300000, guid: 709adaa7a6b360648a91bff68135f30b, type: 3}
   volumeScalesForAudios:
-  - 0.15
-  - 0.15
+  - 0.1
+  - 0.02
   - 0.15
   stateCharacter: 0
   ownerTrigger: {fileID: 0}

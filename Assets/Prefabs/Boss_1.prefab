@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6587227707369903424}
   - component: {fileID: -3787438534143550618}
   m_Layer: 8
-  m_Name: Fire_Knight
+  m_Name: Boss_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
